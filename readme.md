@@ -7,18 +7,18 @@
 This project is for initializing and creating data pipeline to solve the aboved Business Question and Business Scenario
 ## WORKING DATA
 
-1. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+### 1. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
 ```bash
 pip install requirements.txt
 ```
-### Installation RawData 
-#### Data that generator by code. Source 'csv' is gone './Data/Raw'
+### 2. Installation RawData 
+Data that generator by code. Source 'csv' is gone './Data/Raw'
 ```bash
 python Source/RawData.py
 ```
-### Installation WorkData 
-#### Data that take value columns from Raw Data. Source 'csv' is gone './Data/Working'
+### 3. Installation WorkData 
+Data that take value columns from Raw Data. Source 'csv' is gone './Data/Working'
 ```bash
 python Source/WorkingData.py
 ```
