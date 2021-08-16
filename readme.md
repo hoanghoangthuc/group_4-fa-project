@@ -12,11 +12,24 @@ there is project's root folder. That shows what we work here
 - *Folder Data include data train, data use, data Error, data raw and data working
     - Folder Raw include data after we generate data from code python
     - Folder Working include data after we generate data from code python, that we use all data '.csv' by put to ssis, and data error (not enough quality) into '.txt' files.
-
+    - Folder Error include data audit and log after run ssis and during SQL server.
+    - Folder work include data after ETL ssis and take from SQL server, we use this folder that put to snowflake.
+    - Export_snowflake  include data we download data model from snowflake.
+- *Folder Src include process with SQL, SSIS, Snowflake project and code.
+    - MSSQL include init file to declare schema before we run ssis and put data relate with project in SQL server.
+    - Snowflake include init file to declare schema before we run ssis and put data relate with project Snowflake, procedure to process create data model and task.
+    - SnowSQL include code and log to automation put and download data from snowflake and local.
+    - SSIS include project and file
+- *Folder Resoure include Code generator data by python.
+    - Config.json is file include number row of tables and time start and time end of record.
+    - configparam.py is file have declare values from config to RD.py
+    - Rawdata.py is file run code generate data from RD.py
+    - RD.py is file have def create table, caculation,... to make data.
+- *Doc is folder inclule flow, detail data, chema when begin(and end),...
 ## Generate Data by python
 - * -We Work all in resouces folder, that have file name RawData.py to generator data. output is file CSV with 
 ### 1. We should have a path to the folder in local in Command Prompt to install module to run python.
---PATH
+--PATH (is where we have the folder contain all folder of project)
 
 ```bash
 pip install Source/requirements.txt
