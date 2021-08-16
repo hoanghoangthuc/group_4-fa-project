@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="Project1.NhatLq3"
+  DTS:DTSID="{AD12A629-EF77-4C21-A575-D7817C065A98}"
+  DTS:CreationName="ODBC">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="uid=NhatLq3;Dsn=Project1;">
+      <DTS:Password
+        DTS:Name="pwd"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAASoaKdvoht0O02tf7F/hc5AAAAAACAAAAAAADZgAAwAAAABAAAACND3Cp0cT0yfB0Oo/F7/37AAAAAASAAACgAAAAEAAAANoUZAYJ0wBbRhyn3si7Dyd4AAAAGd7w01Hs4ZLQT/Wwz8NHxfSEygGZO1mO+844iOTaZcBN7d5qNaymJ7it44JfYf8E0T1FQlyTlL8u5SGDuGj87Z/KWmrIs8+vwNwBhPBJ8bImH01AuCI6bI/z6kHaPuDeOcfxfwLoKfxhzyAQxFASw4qiQT8QJ38PFAAAAOQE09ZC8J+3FlzZp5XQudjunOxM</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
