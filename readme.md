@@ -9,12 +9,12 @@ This project is for initializing and creating data pipeline to solve the aboved 
 ## ROOT Folder
 ![Root ffle](https://user-images.githubusercontent.com/62283838/129613523-993dae1c-1817-4082-b5f4-55c7e4f2e95f.PNG)
 there is project's root folder. That shows what we work here
-###Folder Data include data train, data use, data Error, data raw and data working
+- *Folder Data include data train, data use, data Error, data raw and data working
     - Folder Raw include data after we generate data from code python
     - Folder Working include data after we generate data from code python, that we use all data '.csv' by put to ssis, and data error (not enough quality) into '.txt' files.
 
 ## Generate Data by python
-#### -We Work all in resouces folder, that have file name RawData.py to generator data. output is file CSV with 
+- * -We Work all in resouces folder, that have file name RawData.py to generator data. output is file CSV with 
 ### 1. We should have a path to the folder in local in Command Prompt to install module to run python.
 --PATH
 
