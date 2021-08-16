@@ -1,0 +1,7 @@
+Warehouse_ID,Warehouse_Name,Warehouse_cost,Location_ID,Address,States,Lat,Long
+5,Chicago_WH19,40084,32412,7063 Mary Curve Apt. 665,Chicago,33.45122,-86.99666
+6,Los_Angeles_WH32,76045,46241,0824 Megan Prairie Suite 711,Los_Angeles,36.06523,-119.01677
+3,Chicago_WH20,56134,936,891 David Run,Chicago,32.5007,-94.74049
+1,Chicago_WH13,57636,45724,22584 Candice Mills,Chicago,35.61452,-88.81395
+3,Los_Angeles_WH11,41451,1493,141 Charles Hollow Suite 620,Los_Angeles,34.63915,-120.45794
+1,Los_Angeles_WH30,59717,40856,37658 Daniel Ranch,Los_Angeles,33.03699,-117.29198
