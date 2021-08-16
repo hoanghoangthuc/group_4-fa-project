@@ -1,4 +1,5 @@
 # PROJECT FA 01
+## Please read this to understand what we do!
 ## I. DECSRIPTION OF THIS PROJECT
 - *Business Question*: Minimizing transportation costs and warehouse allocation
 
