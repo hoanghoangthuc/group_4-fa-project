@@ -8,7 +8,8 @@
 This project is for initializing and creating data pipeline to solve the aboved Business Question and Business Scenario
 ## WORKING DATA
 
-### 1. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+### 1. We should have a path to the folder in local in Command Prompt.
+--PATH
 
 ```bash
 pip install requirements.txt
