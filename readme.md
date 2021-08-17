@@ -26,6 +26,14 @@ there is project's root folder. That shows what we work here
     - Rawdata.py is file run code generate data from RD.py
     - RD.py is file have def create table, caculation,... to make data.
 - *Doc is folder inclule flow, detail data, chema when begin(and end),...
+## detail of work
+### 1. Design data pipeline [here](./docs/flow.png "Architecture")
+### 2. Ingest data from flat file
+### 3. Extract, captured new and changed data
+### 4. Load new and changed data onto Snowflake
+### 5. Normalize and Denormalize data
+### 6. Build data model
+### 7. Visualize your data
 ## Generate Data by python (require python 3)
 -  We work all in resouces folder, that have file name RawData.py to generator data. output is files CSV in folder Data/Raw, Data/Working. We use fake module to make fake data. 
 ### 1. We should have a path to the folder in local in Command Prompt to install module that required to run python.
@@ -39,10 +47,16 @@ pip install resources/requirements.txt
 ```bash
 python resources/RawData.py
 ```
-## SSIS (require: visual studio has integration service)
-### 1 In visual code, go to file select open, click on project/solution. select file .sln in folder SSIS of the project.
-### 2 Click right in background of control flow, select variables. and change values of ProjectPath, is
+## Install snowSQL:[Download](https://sfc-repo.snowflakecomputing.com/snowsql/index.html) 
+## SSIS (require: visual studio has integration service, SQL server,SnowSQL)
+### 1 go to src/MSSQL click init_SQL_install.SQL to init tables and trigger in to SQLserver. Name database is Project1
+### 2 In visual code, go to file select open, click on project/solution. select file .sln in folder SSIS of the project.
+### 3 Click right in background of control flow, select variables. In values of ProjectPath, change source to the folder contain the project.
  ![image](https://user-images.githubusercontent.com/62283838/129654666-c335f3ab-3b7f-428c-9826-e9d312cecb91.png)
+### 4 change connect manager to Project1 database in your SQL server. And make connection managerment in Solution Explorer board in to your Database.
+### 5 Set up again SCD in stagging_location data flow task by click in that, set table view is Stagging.Location, set input columns is coppy of...(...same Dimension Columns), set type Key of Location is Bussiness key and click next. Next, in Dimension Columns add Address(1 house may has 2 address when they in update), in change type choice historical atrribute click next. Set 'columns to indicate current record' is post code,'Values when current' is current, 'expỉation value' is expired. And click finish.
+### 6 Click F5 to run SSIS
+### 7 When we see that finished load data to csv. It'll show Program, waiting and type passwork is"...." You can change your
 
 
 
