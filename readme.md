@@ -58,8 +58,8 @@ python resources/RawData.py
 ### 7 Click F5 to run SSIS
 ### 8 When we see that finished load data to csv. It'll show Program, waiting and type passwork is"...." You can change your account snowflake in both files .bat in /src/snowSQL/ by -a (account) -u (user) -d (Database) -w (warehouse) -s (stage) -r (role). 
 ### 9 Wait to finish SSIS. Data will go into SQLserver and snowflake cloud.
-Set task schedule and process by run script of procedure_snowflake.sql task_snowflake.sql in snowflake 'snowflakecomputing.com/' 
-Download data by click file \src\Snowsql\export_snowflake.bat, You can see a status of put and download data by snowsql_log.txt(put), export_log(download)
+## Set task schedule and process by run script of procedure_snowflake.sql task_snowflake.sql in snowflake 'snowflakecomputing.com/' 
+## Download data by click file \src\Snowsql\export_snowflake.bat, You can see a status of put and download data by snowsql_log.txt(put), export_log(download)
 ##You can take database from snowflake to build PowerBI
 
 ## link: https://kq42353.southeast-asia.azure.snowflakecomputing.com/console#/internal/worksheet
