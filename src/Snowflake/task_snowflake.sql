@@ -84,6 +84,14 @@ AS CALL procCleanup();
 
 
 
+ALTER TASK TASK_CLEANUP RESUME;
+ALTER TASK task_FactRecord RESUME;
+ALTER TASK task_Customer RESUME;
+ALTER TASK task_Product RESUME;
+ALTER TASK task_Datetime RESUME;
+ALTER TASK task_location_warehouse RESUME;
+ALTER TASK task_location_customer RESUME;
+ALTER TASK task_master RESUME;
 
 
 
