@@ -9,9 +9,19 @@ LANGUAGE javascript
 AS
 $$
 var result;
+var sql_command0=
+   `UPDATE PROJECT1.NDS.Location_CUSTOMER tag
+    SET tag.Address=n.Address,tag.Lat=n.Lat ,tag.Long=n.Long ,tag.Post_Code=n.Post_Code,tag.City=n.City,tag.Country_code=n.Country_code,tag.Country_name=n.Country_name,tag.States=n.States
+    FROM PROJECT1.NDS.Location_CUSTOMER n
+    INNER JOIN
+    (SELECT t.LOCATION_NA, Address,Lat ,Long ,Post_Code,City,Country_code,Country_name,States
+     FROM PROJECT1.STAGE.LOCATION t
+     inner join PROJECT1.STAGE.Customer p 
+     on t.location_na=p.location_na  ) d
+    ON d.Location_Na=n.Location_NA;`;
 var sql_command1 =
     `INSERT INTO  PROJECT1.NDS.Location_CUSTOMER(LOCATION_NA, Address,Lat ,Long ,Post_Code,City,Country_code,Country_name,States)
-    SELECT  p.LOCATION_NA, p.Address,p.Lat ,p.Long ,p.Post_Code,p.City,p.Country_code,p.Country_name,p.States
+    SELECT distinct p.LOCATION_NA, p.Address,p.Lat ,p.Long ,p.Post_Code,p.City,p.Country_code,p.Country_name,p.States
     FROM PROJECT1.STAGE.Location p
     INNER JOIN PROJECT1.STAGE.CUSTOMER n
     ON p.LOCATION_NA=n.LOCATION_NA 
@@ -28,6 +38,7 @@ INSERT (Location_ID, Address,Lat ,Long ,Post_Code,City,Country_code,Country_name
 VALUES (Location_ID, Address,Lat ,Long ,Post_Code,City,Country_code,Country_name,States);`;
 
 try {
+snowflake.execute ({sqlText: sql_command0});
 snowflake.execute ({sqlText: sql_command1});
 snowflake.execute ({sqlText: sql_command2}); 
 result = "Succeeded";
@@ -38,7 +49,6 @@ result = "Failed"+err;
 return result;
 $$;
 
-
 CREATE OR REPLACE PROCEDURE procLocation_Warehouse()
 RETURNS string
 LANGUAGE javascript
@@ -47,7 +57,7 @@ $$
 var result;
 var sql_command1 =
     `INSERT INTO  PROJECT1.NDS.Location_Warehouse(LOCATION_NA, Address,Lat ,Long ,Post_Code,City,Country_code,Country_name,States)
-    SELECT  p.LOCATION_NA, p.Address,p.Lat ,p.Long ,p.Post_Code,p.City,p.Country_code,p.Country_name,p.States
+    SELECT distinct  p.LOCATION_NA, p.Address,p.Lat ,p.Long ,p.Post_Code,p.City,p.Country_code,p.Country_name,p.States
     FROM PROJECT1.STAGE.Location p
     INNER JOIN PROJECT1.STAGE.warehouse n
     ON p.LOCATION_NA=n.LOCATION_NA 
@@ -83,12 +93,11 @@ $$
 var result;
 var sql_command1 =
 `INSERT INTO  PROJECT1.NDS.Customer(Customer_Na,name, username,sex ,mail ,birthdate,Location_Na,Phone)
-    SELECT  p.Customer_Na, p.name, p.username,p.sex ,p.mail ,p.birthdate,p.Location_Na,p.Phone
+    SELECT distinct p.Customer_Na, p.name, p.username,p.sex ,p.mail ,p.birthdate,p.Location_Na,p.Phone
     FROM PROJECT1.STAGE.Customer p
-    INNER JOIN  PROJECT1.NDS.Location_CUstomer t
+    INner JOIN  PROJECT1.NDS.Location_CUstomer t
     ON p.Location_Na=t.Location_Na
     Where p.Customer_Na not in (Select Customer_NA from PROJECT1.NDS.Customer);`;
-    
 var sql_command3 =
 `UPDATE  PROJECT1.NDS.Customer Cus
 SET Cus.Location_ID=d.Location_ID
@@ -129,7 +138,7 @@ $$
 var result;
 var sql_command1 =
 `INSERT INTO  PROJECT1.NDS.Warehouse(Warehouse_Na,Warehouse_Name, Warehouse_cost,Location_Na)
-    SELECT  p.Warehouse_Na, p.Warehouse_Name, p.Warehouse_cost,p.Location_Na
+    SELECT distinct p.Warehouse_Na, p.Warehouse_Name, p.Warehouse_cost,p.Location_Na
     FROM PROJECT1.STAGE.Warehouse p
     INNER JOIN  PROJECT1.NDS.Location_Warehouse t
     ON p.Location_Na=t.Location_Na
@@ -180,7 +189,7 @@ $$
 var result;
 var sql_command1 =
 `INSERT INTO  PROJECT1.NDS.Product(Product_Na,Product_Name, Product_SubCategory,Product_Color ,Standard_Cost,General_Price,Product_Number,Sale_DateStart,Sale_DateEnd,Import_Flag,Warehouse_Na)
-    SELECT  p.Product_Na,p.Product_Name, p.Product_SubCategory,p.Product_Color ,p.Standard_Cost,p.General_Price,p.Product_Number,p.Sale_DateStart,p.Sale_DateEnd,p.Import_Flag,p.Warehouse_Na
+    SELECT distinct p.Product_Na,p.Product_Name, p.Product_SubCategory,p.Product_Color ,p.Standard_Cost,p.General_Price,p.Product_Number,p.Sale_DateStart,p.Sale_DateEnd,p.Import_Flag,p.Warehouse_Na
     FROM PROJECT1.STAGE.Product p
     Inner JOIN  PROJECT1.NDS.Warehouse t
     ON p.Warehouse_Na=t.Warehouse_Na
@@ -227,7 +236,7 @@ $$
 var result;
 var sql_command1 =
 `INSERT INTO  PROJECT1.NDS.Datetime 
-    SELECT *
+    SELECT distinct*
     FROM PROJECT1.STAGE.Datetime p
     Where Thedate not in (Select Thedate from PROJECT1.NDS.Datetime);`;
 
@@ -335,6 +344,17 @@ result = "Failed"+err;
 }
 return result;
 $$;
+
+
+
+
+
+
+
+USE ROLE SYSADMIN;
+USE WAREHOUSE STAGE;
+USE DATABASE PROJECT1;
+USE SCHEMA STAGE;
 
 call  procLocation_customer();
 call  procLocation_Warehouse();
