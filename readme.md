@@ -27,7 +27,7 @@ there is project's root folder. That shows what we work here
     - RD.py is file have def create table, caculation,... to make data.
 - *Doc is folder inclule flow, detail data, chema when begin(and end),...
 ## Generate Data by python
-- * -We Work all in resouces folder, that have file name RawData.py to generator data. output is file CSV with 
+-  We work all in resouces folder, that have file name RawData.py to generator data. output is files CSV in folder Data/Raw, Data/Working.  
 ### 1. We should have a path to the folder in local in Command Prompt to install module that required to run python.
 --PATH (is where we have the folder contain all folder of project)
 
