@@ -12,8 +12,11 @@ GET @%DIMDATE/Export_snowflake/ file://&{folder};
 COPY INTO '@%DIMCUSTOMER/Export_snowflake/' from PROJECT1.MODEL.DIMCUSTOMER file_format = (format_name ='CSV_FILE' compression='GZIP') OVERWRITE=TRUE;
 GET @%DIMCUSTOMER/Export_snowflake/ file://&{folder};
 
-COPY INTO '@%DIMLOCATION/Export_snowflake/' from PROJECT1.MODEL.DIMLOCATION file_format = (format_name ='CSV_FILE' compression='GZIP') OVERWRITE=TRUE;
-GET @%DIMLOCATION/Export_snowflake/ file://&{folder};
+COPY INTO '@%DIMLOCATION_WAREHOUSE/Export_snowflake/' from PROJECT1.MODEL.DIMLOCATION_WAREHOUSE file_format = (format_name ='CSV_FILE' compression='GZIP') OVERWRITE=TRUE;
+GET @%DIMLOCATION_WAREHOUSE/Export_snowflake/ file://&{folder};
+
+COPY INTO '@%DIMLOCATION_CUSTOMER/Export_snowflake/' from PROJECT1.MODEL.DIMLOCATION_CUSTOMER file_format = (format_name ='CSV_FILE' compression='GZIP') OVERWRITE=TRUE;
+GET @%DIMLOCATION_CUSTOMER/Export_snowflake/ file://&{folder};
 
 COPY INTO '@%DIMPRODUCT/Export_snowflake/' from PROJECT1.MODEL.DIMPRODUCT file_format = (format_name ='CSV_FILE' compression='GZIP') OVERWRITE=TRUE;
 GET @%DIMPRODUCT/Export_snowflake/ file://&{folder};
