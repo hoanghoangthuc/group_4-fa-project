@@ -62,6 +62,11 @@ Set task schedule and process by run script of procedure_snowflake.sql task_snow
 Download data by click file \src\Snowsql\export_snowflake.bat, You can see a status of put and download data by snowsql_log.txt(put), export_log(download)
 ##You can take database from snowflake to build PowerBI
 
+## link: https://kq42353.southeast-asia.azure.snowflakecomputing.com/console#/internal/worksheet
+##account for trainer:
+    Miss Mai: Acc:'msmai' pass:'12345678wa'
+    Mr Long: Acc:'Mrlong' pass: '12345678wa'
+
 Thank You!
 Nhat,Le Quang
 Thuc, Hoang Hoang
