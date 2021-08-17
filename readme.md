@@ -42,7 +42,7 @@ python resources/RawData.py
 ## SSIS (require: visual studio has integration service)
 ### 1 In visual code, go to file select open, click on project/solution. select file .sln in folder SSIS of the project.
 ### 2 Click right in background of control flow, select variables. and change values of ProjectPath, is
-    ![image](https://user-images.githubusercontent.com/62283838/129654666-c335f3ab-3b7f-428c-9826-e9d312cecb91.png)
+ ![image](https://user-images.githubusercontent.com/62283838/129654666-c335f3ab-3b7f-428c-9826-e9d312cecb91.png =200x200)
 
 
 
