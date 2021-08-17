@@ -27,7 +27,7 @@ there is project's root folder. That shows what we work here
     - RD.py is file have def create table, caculation,... to make data.
 - *Doc is folder inclule flow, detail data, chema when begin(and end),...
 ## detail of work
-### 1. Design data pipeline [here](./docs/flow.png "Architecture")
+### 1. Design data pipeline [here](https://github.com/thuchh/group_4-fa-project/blob/main/Doc/Schema.png)
 ### 2. Ingest data from flat file
 ### 3. Extract, captured new and changed data
 ### 4. Load new and changed data onto Snowflake
