@@ -64,8 +64,8 @@ Download data by click file \src\Snowsql\export_snowflake.bat, You can see a sta
 
 ## link: https://kq42353.southeast-asia.azure.snowflakecomputing.com/console#/internal/worksheet
 ##account for trainer:
-    Miss Mai: Acc:'msmai' pass:'12345678wa'
-    Mr Long: Acc:'Mrlong' pass: '12345678wa'
+    - Miss Mai: Acc:'msmai' / pass:'12345678wa'
+    = Mr Long: Acc:'Mrlong' / pass: '12345678wa'
 
 Thank You!
 Nhat,Le Quang
