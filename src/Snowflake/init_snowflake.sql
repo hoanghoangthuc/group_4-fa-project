@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS NDS.Customer(
 
  
 
-CREATE TABLE IF NOT EXISTS NDS.Location(
+CREATE TABLE IF NOT EXISTS NDS.Location_Warehouse(
 	Location_ID int IDENTITY(1,1)  primary key,
     Location_Na Int NOT NULL ,
     Address varchar(100) NOT NULL,
@@ -212,7 +212,21 @@ CREATE TABLE IF NOT EXISTS NDS.Location(
     States varchar(30) NOT NULL);
 
  
+/****** Object: create Table Stagging.LoCation    Script Date: 8/11/2021 5:55:21 PM ******/
 
+ 
+
+CREATE TABLE IF NOT EXISTS NDS.Location_Customer(
+	Location_ID int IDENTITY(1,1)  primary key,
+    Location_Na Int NOT NULL ,
+    Address varchar(100) NOT NULL,
+    Lat float NOT NULL,
+    Long float NOT NULL,
+    Post_Code int NOT NULL,
+    City varchar(20) NOT NULL,
+    Country_code varchar(2) NOT NULL,
+    Country_name varchar(20) NOT NULL,
+    States varchar(30) NOT NULL);
 /****** Object:  Create Table Stagging.Product    Script Date: 8/11/2021 5:55:21 PM ******/
 
  
@@ -274,12 +288,12 @@ CREATE TABLE IF NOT EXISTS NDS.Warehouse(
 
 	ALTER TABLE NDS.Warehouse
 	ADD CONSTRAINT FK_warehouse
-	FOREIGN KEY (Location_ID) REFERENCES NDS.Location(Location_ID);
+	FOREIGN KEY (Location_ID) REFERENCES NDS.Location_Warehouse(Location_ID);
 
  
      ALTER TABLE NDS.Customer
 	ADD CONSTRAINT FK_Customers
-	FOREIGN KEY (Location_ID) REFERENCES NDS.Location(Location_ID);
+	FOREIGN KEY (Location_ID) REFERENCES NDS.Location_Customer(Location_ID);
     
 	ALTER TABLE NDS.Product
 	ADD CONSTRAINT FK_Product
@@ -369,7 +383,7 @@ CREATE TABLE IF NOT EXISTS MODEL.DIMCUSTOMER(
 
  
 
-CREATE TABLE IF NOT EXISTS MODEL.DIMLOCATION(
+CREATE TABLE IF NOT EXISTS MODEL.DIMLOCATION_CUSTOMER(
 	Location_ID int NULL primary key,
     Address varchar(100) NOT NULL,
     Lat float NOT NULL,
@@ -380,7 +394,20 @@ CREATE TABLE IF NOT EXISTS MODEL.DIMLOCATION(
     Country_name varchar(20) NOT NULL,
     States varchar(30) NOT NULL);
 
+/****** Object: create Table Stagging.DIMLOCATION    Script Date: 8/11/2021 5:55:21 PM ******/
+
  
+
+CREATE TABLE IF NOT EXISTS MODEL.DIMLOCATION_WAREHOUSE(
+	Location_ID int NULL primary key,
+    Address varchar(100) NOT NULL,
+    Lat float NOT NULL,
+    Long float NOT NULL,
+    Post_Code int NOT NULL,
+    City varchar(20) NOT NULL,
+    Country_code varchar(2) NOT NULL,
+    Country_name varchar(20) NOT NULL,
+    States varchar(30) NOT NULL);
 
 /****** Object:  Create Table Stagging.DIMPRODUCT    Script Date: 8/11/2021 5:55:21 PM ******/
 
@@ -436,12 +463,12 @@ CREATE TABLE IF NOT EXISTS MODEL.DIMWAREHOUSE(
 
 	ALTER TABLE MODEL.DIMWAREHOUSE
 	ADD CONSTRAINT FK_warehouse
-	FOREIGN KEY (Location_ID) REFERENCES MODEL.DIMLOCATION(Location_ID);
+	FOREIGN KEY (Location_ID) REFERENCES MODEL.DIMLOCATION_WAREHOUSE(Location_ID);
 
  
      ALTER TABLE MODEL.DIMCUSTOMER
 	ADD CONSTRAINT FK_Customers
-	FOREIGN KEY (Location_ID) REFERENCES MODEL.DIMLOCATION(Location_ID);
+	FOREIGN KEY (Location_ID) REFERENCES MODEL.DIMLOCATION_CUSTOMER(Location_ID);
     
 	ALTER TABLE MODEL.DIMPRODUCT
 	ADD CONSTRAINT FK_Product
@@ -477,24 +504,11 @@ CREATE TABLE IF NOT EXISTS MODEL.DIMWAREHOUSE(
 	ADD CONSTRAINT FK_record_Date_Ship
 	FOREIGN KEY (Date_Ship) REFERENCES MODEL.DIMDATE(TheDate);
     
-
+--set up data to model to download--
 CREATE FILE FORMAT "PROJECT1"."MODEL".CSV_FILE
 TYPE = 'CSV' COMPRESSION = 'AUTO' FIELD_DELIMITER = ','
 RECORD_DELIMITER = '\n' SKIP_HEADER = 0 FIELD_OPTIONALLY_ENCLOSED_BY = 'NONE'
 TRIM_SPACE = FALSE ERROR_ON_COLUMN_COUNT_MISMATCH = TRUE ESCAPE = 'NONE'
 ESCAPE_UNENCLOSED_FIELD = '\134' DATE_FORMAT = 'AUTO' TIMESTAMP_FORMAT = 'AUTO'
 NULL_IF = ('\\N');
-
-use role securityadmin;
-
-create role taskadmin;
-
--- set the active role to ACCOUNTADMIN before granting the EXECUTE TASK privilege to the new role
-use role accountadmin;
-
-grant execute task on account to role taskadmin;
-
--- set the active role to SECURITYADMIN to show that this role can grant a role to another role
-use role securityadmin;
-
-grant role taskadmin to role Sysadmin;
+--
