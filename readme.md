@@ -35,20 +35,20 @@ there is project's root folder. That shows what we work here
 ### 6. Visualize data
 ## Generate Data by python (require python 3)
 -  We work all in resouces folder, that have file name RawData.py to generator data. output is files CSV in folder Data/Raw, Data/Working. We use fake module to make fake data. 
-### 1. We should have a path to the folder in local in Command Prompt to install module that required to run python.
+ 1. We should have a path to the folder in local in Command Prompt to install module that required to run python.
 --PATH (is where we have the folder contain all folder of project)
 
 ```bash
 pip install resources/requirements.txt
 ```
-### 2. Change rows of tables. In file Config.json: customer_record(customer line number), product_record(product line number), location_record(location line number), warehouse_record(warehouse line number), order_record(order line number), start_date(date start of record),end_date(date end of record).
-### 3. Installation RawData (folder Data/Raw, Data/Working)
+ 2. Change rows of tables. In file Config.json: customer_record(customer line number), product_record(product line number), location_record(location line number), warehouse_record(warehouse line number), order_record(order line number), start_date(date start of record),end_date(date end of record).
+ 3. Installation RawData (folder Data/Raw, Data/Working)
 ```bash
 python resources/RawData.py
 ```
 ## Install snowSQL:[Download](https://sfc-repo.snowflakecomputing.com/snowsql/index.html) 
 ## SSIS (require: visual studio has integration service, SQL server,SnowSQL)
-### 1 go to src/MSSQL click init_SQL_install.SQL to init tables and trigger in to SQLserver. Name database is Project1
+1 go to src/MSSQL click init_SQL_install.SQL to init tables and trigger in to SQLserver. Name database is Project1
 ### 2 go to src/Snowflake take init_snowflake.sql, procedure_snowflake.sql task_snowflake.sql into 3 script query int snowflake, Run init_snowflake first to declare model of data.
 ### 3 In visual code, go to file select open, click on project/solution. select file .sln in folder SSIS of the project.
 ### 4 Click right in background of control flow, select variables. In values of ProjectPath, change source to the folder contain the project.
