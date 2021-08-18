@@ -18,9 +18,17 @@ there is project's root folder. That shows what we work here
 - *Folder Src include process with SQL, SSIS, Snowflake project and code.
     - MSSQL includes an init file to declare the schema before we run ssis and put the project related data into SQL server.
     - Snowflake includes an init file to declare the schema before we run ssis and inject data related to the Snowflake project, the data modeling process, and the task.
+        -  connect_snowsql.bat is file run upload data from data/work to snowflake
+        -  export_snowsql.bat is file down load data to folder data/export_snowflake
+        -  put_snow.sql is code sql support upload data for connect_snowsql.bat 
+        -  export_snowsql.sql is code sql support download data for export_snowsql.bat
+        -  export_log.txt is record process with download data from snowflake
+        -  snowsql_log.txt is record processs with upload data from snowflake
     - SnowSQL includes code and logs to automate loading and unloading data from snowflake and local.
-        - snow
-    - SSIS includes project and file
+        - init_snowflake.sql file set up table, schema, stage, database in snowflake
+        - procedure_snowflake.sql file set producre in snowflake and call producre
+        - task_snowflake.sql file set task and schedule to run procedure.
+    - SSIS includes project and file to run ssis in visualcode
 - *Folder Resoure include Code generator data by python.
     - Config.json is file include number row of tables and time start and time end of record.
     - configparam.py is file have declare values from config to RD.py
@@ -50,10 +58,14 @@ python resources/RawData.py
 ## Install snowSQL:[Download](https://sfc-repo.snowflakecomputing.com/snowsql/index.html) 
 ## SSIS (require: visual studio has integration service, SQL server,SnowSQL)
 ### 1 go to src/MSSQL click init_SQL_install.SQL to init tables and trigger in to SQLserver. Name database is Project1
-### 2 go to src/Snowflake take init_snowflake.sql, procedure_snowflake.sql task_snowflake.sql into 3 script query int snowflake, Run init_snowflake in query first to declare model of data.
-### - link:https://yr27995.southeast-asia.azure.snowflakecomputing.com/
+### 2 go to src/Snowflake link:https://yr27995.southeast-asia.azure.snowflakecomputing.com/ and:
+####    -Take init_snowflake.sql, procedure_snowflake.sql task_snowflake.sql into 3 script query int snowflake.
+####    -Run init_snowflake in query first to declare model of data.
 ### 3 In visual code, go to file select open, click on project/solution. select file .sln in folder SSIS of the project.
-### 4 Click right in background of control flow, select variables. In values of ProjectPath, change source to the folder contain the project.
+### 4 Set folder of path:
+####    - Click right in background of control flow, select variables. 
+####    - In values of 'ProjectPath' in values box, change source to the folder contain the project.
+####    - Click in all of other boxs '...' in expresssion. click evaluate expression and save. 
  ![image](https://user-images.githubusercontent.com/62283838/129654666-c335f3ab-3b7f-428c-9826-e9d312cecb91.png)
 ### 5 change connect manager to Project1 database in your SQL server. And make connection managerment in Solution Explorer board in to your Database.
 ### 6 Set up again SCD in stagging_location data flow task by click in that, set table view is Stagging.Location, set input columns is coppy of...(...same Dimension Columns), set type Key of Location is Bussiness key and click next. Next, in Dimension Columns add Address(1 house may has 2 address when they in update), in change type choice historical atrribute click next. Set 'columns to indicate current record' is post code,'Values when current' is current, 'expỉation value' is expired. And click finish.
