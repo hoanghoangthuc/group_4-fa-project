@@ -290,7 +290,6 @@ FROM PROJECT1.NDS.Record t
 INNER JOIN
 PROJECT1.NDS.Product d
 ON d.Product_NA=t.Product_NA;`;
-
 var sql_command2 =
 `MERGE INTO PROJECT1.MODEL.FACTRECORD t
 USING PROJECT1.NDS.RECORD s
@@ -316,7 +315,7 @@ return result;
 $$;
 
 
-CREATE OR REPLACE PROCEDURE procCleanup()
+CREATE OR REPLACE PROCEDURE pro_Cleanup_Stage()
 RETURNS string
 LANGUAGE javascript
 AS
@@ -346,21 +345,18 @@ return result;
 $$;
 
 
-
-
-
-
-
-USE ROLE SYSADMIN;
-USE WAREHOUSE STAGE;
-USE DATABASE PROJECT1;
-USE SCHEMA STAGE;
-
-call  procLocation_customer();
-call  procLocation_Warehouse();
-call proDATETIME();
-call proWarehouse();
-Call proProduct();
-Call proCustomer();
-call proRecord();
-CALL procCleanup();
+CALL pro_Location_customer_NDS();
+CALL pro_Location_Warehouse_NDS();
+CALL pro_DATETIME_NDS();
+CALL pro_Warehouse_NDS();
+CALL pro_Product_NDS();
+CALL pro_Customer_NDS();
+CALL pro_Record_NDS();
+CALL pro_Location_customer_model();
+CALL pro_Location_Warehouse_model();
+CALL pro_DATETIME_model();
+CALL pro_Warehouse_model();
+CALL pro_Product_model();
+CALL pro_Customer_model();
+CALL pro_Record_model();
+CALL pro_Cleanup_Stage();
