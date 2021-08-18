@@ -6,10 +6,7 @@ CREATE WAREHOUSE IF NOT EXISTS WAREHOUSE
 WITH WAREHOUSE_SIZE = 'MEDIUM'
 WAREHOUSE_TYPE = 'STANDARD' 
 AUTO_SUSPEND = 600 
-AUTO_RESUME = TRUE 
-MIN_CLUSTER_COUNT = 2 
-MAX_CLUSTER_COUNT = 4 
-SCALING_POLICY = 'STANDARD';
+AUTO_RESUME = TRUE;
 
 -- Create task
 -- task_master:
@@ -133,7 +130,7 @@ COMMENT="Truncate load tables after process completes"
 AFTER task_FactRecord_model
 AS CALL pro_Cleanup_Stage();
 
-
+use role accountadmin;
 
 ALTER TASK TASK_CLEANUP RESUME;
 ALTER TASK task_FactRecord_model RESUME;
