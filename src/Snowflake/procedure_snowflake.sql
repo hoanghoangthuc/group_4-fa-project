@@ -90,6 +90,11 @@ var sql_command2 =
     INNER JOIN PROJECT1.STAGE.warehouse n
     ON p.LOCATION_NA=n.LOCATION_NA 
     Where p.Location_NA not in (Select Location_NA from PROJECT1.NDS.Location_Warehouse);`;
+var sql_command3 =
+`UPDATE  PROJECT1.NDS.Warehouse Wa
+SET wa.Location_ID=d.Location_ID  
+FROM PROJECT1.NDS.Location_Warehouse d
+where d.Location_Na=wa.Location_NA;`;
 try {
 snowflake.execute ({sqlText: sql_command1});
 snowflake.execute ({sqlText: sql_command2}); 
@@ -149,10 +154,8 @@ var sql_command2 =
 var sql_command3 =
 `UPDATE  PROJECT1.NDS.Customer Cus
 SET Cus.Location_ID=d.Location_ID
-FROM PROJECT1.NDS.Customer t
-INNER JOIN
-PROJECT1.NDS.Location_Customer d
-ON d.Location_Na=t.Location_NA;`;
+FROM PROJECT1.NDS.Location_Customer d
+ON d.Location_Na=Cus.Location_NA;`;
 try {
 snowflake.execute ({sqlText: sql_command1});
 snowflake.execute ({sqlText: sql_command2});
@@ -215,11 +218,9 @@ var sql_command2 =
 
 var sql_command3 =
 `UPDATE  PROJECT1.NDS.Warehouse Wa
-SET Wa.Location_ID=d.Location_ID
-FROM PROJECT1.NDS.Warehouse t
-INNER JOIN
-PROJECT1.NDS.Location_Warehouse d
-ON d.Location_Na=t.Location_NA;`;
+SET wa.Location_ID=d.Location_ID  
+FROM PROJECT1.NDS.Location_Warehouse d
+where d.Location_Na=wa.Location_NA;`;
 
 
 
@@ -289,10 +290,8 @@ var sql_command2 =
 var sql_command3 =
 `UPDATE  PROJECT1.NDS.Product Pr
 SET Pr.WAREHOUSE_ID=d.Warehouse_ID
-FROM PROJECT1.NDS.Product t
-INNER JOIN
-PROJECT1.NDS.Warehouse d
-ON d.Warehouse_NA=t.Warehouse_Na;`;
+FROM PROJECT1.NDS.Warehouse d
+ON d.Warehouse_NA=Pr.Warehouse_Na;`;
 
 
 
@@ -408,18 +407,15 @@ var sql_command2 =
 var sql_command3 =
 `UPDATE  PROJECT1.NDS.Record Pr
 SET Pr.Customer_ID=d.Customer_ID
-FROM PROJECT1.NDS.Record t
-INNER JOIN
-PROJECT1.NDS.Customer d
-ON d.Customer_Na=t.Customer_Na;`;
+FROM  PROJECT1.NDS.Customer d
+ON d.Customer_Na=Pr.Customer_Na;`;
 
 var sql_command4 =
 `UPDATE  PROJECT1.NDS.Record Pr
 SET Pr.Product_ID=d.Product_ID
-FROM PROJECT1.NDS.Record t
-INNER JOIN
+FROM 
 PROJECT1.NDS.Product d
-ON d.Product_NA=t.Product_NA;`;
+ON d.Product_NA=Pr.Product_NA;`;
 
 
 try {
@@ -490,6 +486,13 @@ result = "Failed"+err;
 }
 return result;
 $$;
+
+
+USE ROLE SYSADMIN;
+USE WAREHOUSE STAGE;
+USE DATABASE PROJECT1;
+USE SCHEMA STAGE;
+
 
 CALL pro_Location_customer_NDS();
 CALL pro_Location_Warehouse_NDS();
