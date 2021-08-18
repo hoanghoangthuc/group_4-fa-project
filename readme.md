@@ -19,6 +19,7 @@ there is project's root folder. That shows what we work here
     - MSSQL includes an init file to declare the schema before we run ssis and put the project related data into SQL server.
     - Snowflake includes an init file to declare the schema before we run ssis and inject data related to the Snowflake project, the data modeling process, and the task.
     - SnowSQL includes code and logs to automate loading and unloading data from snowflake and local.
+        - snow
     - SSIS includes project and file
 - *Folder Resoure include Code generator data by python.
     - Config.json is file include number row of tables and time start and time end of record.
@@ -50,7 +51,7 @@ python resources/RawData.py
 ## SSIS (require: visual studio has integration service, SQL server,SnowSQL)
 ### 1 go to src/MSSQL click init_SQL_install.SQL to init tables and trigger in to SQLserver. Name database is Project1
 ### 2 go to src/Snowflake take init_snowflake.sql, procedure_snowflake.sql task_snowflake.sql into 3 script query int snowflake, Run init_snowflake in query first to declare model of data.
-### - link:https://kq42353.southeast-asia.azure.snowflakecomputing.com/
+### - link:https://yr27995.southeast-asia.azure.snowflakecomputing.com/
 ### 3 In visual code, go to file select open, click on project/solution. select file .sln in folder SSIS of the project.
 ### 4 Click right in background of control flow, select variables. In values of ProjectPath, change source to the folder contain the project.
  ![image](https://user-images.githubusercontent.com/62283838/129654666-c335f3ab-3b7f-428c-9826-e9d312cecb91.png)
