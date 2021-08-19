@@ -90,11 +90,6 @@ var sql_command2 =
     INNER JOIN PROJECT1.STAGE.warehouse n
     ON p.LOCATION_NA=n.LOCATION_NA 
     Where p.Location_NA not in (Select Location_NA from PROJECT1.NDS.Location_Warehouse);`;
-var sql_command3 =
-`UPDATE  PROJECT1.NDS.Warehouse Wa
-SET wa.Location_ID=d.Location_ID  
-FROM PROJECT1.NDS.Location_Warehouse d
-where d.Location_Na=wa.Location_NA;`;
 try {
 snowflake.execute ({sqlText: sql_command1});
 snowflake.execute ({sqlText: sql_command2}); 
