@@ -76,7 +76,7 @@ python resources/RawData.py
 9. Wait to finish SSIS. Data will go into SQLserver and snowflake cloud.
 Set task schedule and process by run script of procedure_snowflake.sql task_snowflake.sql in snowflake 'snowflakecomputing.com/' 
 
-# Download data by click file \src\Snowsql\export_snowflake.bat, You can see a status of put and download data by snowsql_log.txt(put), export_log(download)
+### Download data by click file \src\Snowsql\export_snowflake.bat, You can see a status of put and download data by snowsql_log.txt(put), export_log(download)
 You can take database from snowflake to build PowerBI
 
 ## link snowflake: https://yr27995.southeast-asia.azure.snowflakecomputing.com/
