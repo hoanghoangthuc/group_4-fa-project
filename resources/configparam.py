@@ -1,11 +1,11 @@
 import json
 import os
 class ParamObject:
-    def __init__(self, customer_record, product_record, ads_header_record, warehouse_record,order_record,
+    def __init__(self, customer_record, product_record, Location_record, warehouse_record,order_record,
                  start_date, end_date):
         self.customer_record = customer_record
         self.product_record = product_record
-        self.location_record = ads_header_record
+        self.location_record = Location_record
         self.warehouse_record = warehouse_record
         self.order_record=order_record
         self.start_date = start_date
