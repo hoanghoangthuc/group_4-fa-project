@@ -57,8 +57,8 @@ python resources/RawData.py
 ```
 Install snowSQL:[Download](https://sfc-repo.snowflakecomputing.com/snowsql/index.html) 
 SSIS (require: visual studio has integration service, SQL server,SnowSQL)
-1 go to src/MSSQL click init_SQL_install.SQL to init tables and trigger in to SQLserver. Name database is Project1
-2 go to src/Snowflake link:https://yr27995.southeast-asia.azure.snowflakecomputing.com/ and:
+1 *go to src/MSSQL click init_SQL_install.SQL to init tables and trigger in to SQLserver. Name database is Project1.
+2 *go to src/Snowflake link:https://yr27995.southeast-asia.azure.snowflakecomputing.com/ and:
       -Take init_snowflake.sql, procedure_snowflake.sql task_snowflake.sql into 3 script query int snowflake.
       -Run init_snowflake in query first to declare model of data.
       -in file procedure, I have comment all call, If use, you shold open new querry in Snowflake
