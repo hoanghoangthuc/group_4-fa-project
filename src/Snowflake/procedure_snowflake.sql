@@ -487,8 +487,8 @@ result = "Failed"+err;
 return result;
 $$;
 
-
-USE ROLE SYSADMIN;
+--if you use that please remover hashtag--
+/* USE ROLE SYSADMIN;
 USE WAREHOUSE STAGE;
 USE DATABASE PROJECT1;
 USE SCHEMA STAGE;
@@ -508,4 +508,4 @@ CALL pro_Warehouse_model();
 CALL pro_Product_model();
 CALL pro_Customer_model();
 CALL pro_Record_model();
-CALL pro_Cleanup_Stage();
+CALL pro_Cleanup_Stage();*/
