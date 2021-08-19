@@ -62,6 +62,7 @@ python resources/RawData.py
 -  Take init_snowflake.sql, procedure_snowflake.sql task_snowflake.sql into 3 script query int snowflake.
 -  Run init_snowflake in query first to declare model of data.
 -  in file procedure, I have comment all call, If use, you shold open new querry in Snowflake.
+-  You should run file procedure and task after you run init_snowflake
 3. In visual code, go to file select open, click on project/solution. select file .sln in folder SSIS of the project.
 4. Set folder of path:
 - Click right in background of control flow, select variables. 
