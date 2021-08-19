@@ -48,7 +48,7 @@ there is project's root folder. That shows what we work here
 --PATH (is where we have the folder contain all folder of project)
 
 ```bash
-pip install resources/requirements.txt
+pip install -r resources/requirements.txt
 ```
  2. Change rows of tables. In file Config.json: customer_record(customer line number), product_record(product line number), location_record(location line number), warehouse_record(warehouse line number), order_record(order line number), start_date(date start of record),end_date(date end of record).
  3. Installation RawData (folder Data/Raw, Data/Working)
