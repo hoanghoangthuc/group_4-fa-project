@@ -40,7 +40,7 @@ there is project's root folder. That shows what we work here
 ### 2. Ingest data from flat file
 ### 3. Extract, ETL Data
 ### 4. Load new and changed data onto Snowflake
-### 5. Build data model [schema](https://github.com/thuchh/group_4-fa-project/blob/main/Doc/Schema.png) with [detail](https://github.com/thuchh/group_4-fa-project/blob/main/Doc/detail%20of%20columns.xlsx)
+### 5. Build data model [schema](https://github.com/thuchh/group_4-fa-project/blob/main/Doc/Schema.png) with [detail tavle schema](https://github.com/thuchh/group_4-fa-project/blob/main/Doc/detail%20of%20columns.xlsx)
 ### 6. Visualize data
 ## Generate Data by python (require python 3)
 -  We work all in resouces folder, that have file name RawData.py to generator data. output is files CSV in folder Data/Raw, Data/Working. We use fake module to make fake data. 
