@@ -59,9 +59,9 @@ python resources/RawData.py
 ###SSIS (require: visual studio has integration service, SQL server,SnowSQL)
 1. go to src/MSSQL click init_SQL_install.SQL to init tables and trigger in to SQLserver. Name database is Project1.
 2. go to src/Snowflake link:https://yr27995.southeast-asia.azure.snowflakecomputing.com/ and:
-   -T*ake init_snowflake.sql, procedure_snowflake.sql task_snowflake.sql into 3 script query int snowflake.
-   -*Run init_snowflake in query first to declare model of data.
-   -*in file procedure, I have comment all call, If use, you shold open new querry in Snowflake
+   -* Take init_snowflake.sql, procedure_snowflake.sql task_snowflake.sql into 3 script query int snowflake.
+   -* Run init_snowflake in query first to declare model of data.
+   -* in file procedure, I have comment all call, If use, you shold open new querry in Snowflake
 3. In visual code, go to file select open, click on project/solution. select file .sln in folder SSIS of the project.
 4 Set folder of path:
     - Click right in background of control flow, select variables. 
