@@ -68,7 +68,7 @@ def create_Warehouse(RECORD_COUNT,Lc):
     datalocation=Lc
     indexlocationk=generatePassword(RECORD_COUNT,len(datalocation))
     for i in range(RECORD_COUNT):
-        Warehouse_ID.append(fake.random_int(10,99))
+        Warehouse_ID.append(i)
         indexlocation=indexlocationk[i]
         Warehouse_cost.append(fake.random_int(1000,3000))
         indexlocationk.append(indexlocation)
@@ -246,8 +246,8 @@ def create_Storage(RECORD_COUNT,Pr,Wa):
     df=pd.DataFrame(columns=['Storage_ID','Product','Warehouse','Capability','Quantity'])
     for i in range(RECORD_COUNT):
         Storage_ID=i
-        Product=random.randint(1, len(Pr)-1)
-        Warehouse=random.randint(1, len(Wa)-1)
+        Product=random.randint(0, len(Pr)-1)
+        Warehouse=random.randint(0, len(Wa)-1)
         Capability=fake.random_int(1000,10000)
         Quantity=fake.random_int(0,Capability)
         to_append=[Storage_ID, Product, Warehouse, Capability,Quantity]
@@ -271,6 +271,7 @@ def create_Import(Sto,Sp,startdate,enddate):
             to_append=[ImportID, Product, Warehouse, Suppiler,Quantity,ImportDate,ModifiedDate]
             a_series = pd.Series(to_append, index = df.columns)
             df = df.append(a_series, ignore_index=True) 
+            ImportID+=1
     return(df) 
 
 
@@ -291,7 +292,7 @@ def shipping_cost(distance,weigth):
     if float(distance) < 300:
         cost = 0
     elif float(distance) >= 300:
-        cost = (distance - 300)*0.02*weigth
+        cost = (distance - 300)*0.00002*weigth
     return round(cost,3)
 
 #create distance
