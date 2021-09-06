@@ -9,7 +9,7 @@ EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'ErrorEmai
 @description=N'Email address for receiving error alert', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String';
 GO
 -- Change sql_variant to your project path
-DECLARE @var sql_variant = N'E:\Project 2 - Topic 4\group_4-fa-project'
+DECLARE @var sql_variant = N'E:\Project2-Topic4\group_4-fa-project1'
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'ProjectPath', @sensitive=False,
 @description=N'Path to Project folder', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String';
 GO
@@ -358,3 +358,119 @@ EXEC msdb.dbo.sp_grant_proxy_to_subsystem
 @subsystem_name='Dts'
 GO
 USE [msdb]
+
+-- Create Job Upload
+USE [msdb]
+GO
+DECLARE @jobId BINARY(16)
+EXEC  msdb.dbo.sp_add_job @job_name=N'Upload', 
+		@enabled=1, 
+		@notify_level_eventlog=0, 
+		@notify_level_email=2, 
+		@notify_level_page=2, 
+		@delete_level=0, 
+		@category_name=N'[Uncategorized (Local)]'
+GO
+EXEC msdb.dbo.sp_add_jobserver @job_name=N'Upload', @server_name = @@servername
+GO
+USE [msdb]
+GO
+Declare @reference_id nvarchar(max) = (SELECT reference_id
+  FROM [SSISDB].[internal].[environment_references]
+  WHERE environment_name = 'Project2');
+Declare @command nvarchar(max) = '/ISSERVER "\"\SSISDB\Project2\Project2\Upload.dtsx\"" /SERVER "\".\"" /ENVREFERENCE ' + @reference_id +' /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E'
+EXEC msdb.dbo.sp_add_jobstep @job_name=N'Upload', @step_name=N'Upload', 
+		@step_id=1, 
+		@cmdexec_success_code=0, 
+		@on_success_action=1, 
+		@on_fail_action=2, 
+		@retry_attempts=0, 
+		@retry_interval=0, 
+		@os_run_priority=0, @subsystem=N'SSIS', 
+		@command=@command, 
+		@database_name=N'master', 
+		@flags=0
+GO
+USE [msdb]
+GO
+EXEC msdb.dbo.sp_update_job @job_name=N'Upload', 
+		@enabled=1, 
+		@start_step_id=1, 
+		@notify_level_eventlog=0, 
+		@notify_level_email=2, 
+		@notify_level_page=2, 
+		@delete_level=0, 
+		@description=N'', 
+		@category_name=N'[Uncategorized (Local)]', 
+		@notify_email_operator_name=N'', 
+		@notify_page_operator_name=N''
+GO
+-- Add schedule
+EXEC sp_add_schedule @schedule_name = N'Upload', 
+		@freq_type = 4, 
+		@freq_interval = 1, 
+		@active_start_time = 000500;
+
+-- Attach job to schedule
+GO
+EXEC sp_attach_schedule  
+   		@job_name = N'Upload',  
+   		@schedule_name = N'Upload';
+
+-- Create Job Unload
+USE [msdb]
+GO
+DECLARE @jobId BINARY(16)
+EXEC  msdb.dbo.sp_add_job @job_name=N'Unload', 
+		@enabled=1, 
+		@notify_level_eventlog=0, 
+		@notify_level_email=2, 
+		@notify_level_page=2, 
+		@delete_level=0, 
+		@category_name=N'[Uncategorized (Local)]'
+GO
+EXEC msdb.dbo.sp_add_jobserver @job_name=N'Unload', @server_name = @@servername
+GO
+USE [msdb]
+GO
+Declare @reference_id nvarchar(max) = (SELECT reference_id
+  FROM [SSISDB].[internal].[environment_references]
+  WHERE environment_name = 'Project2');
+Declare @command nvarchar(max) = '/ISSERVER "\"\SSISDB\Project2\Project2\Unload.dtsx\"" /SERVER "\".\"" /ENVREFERENCE ' + @reference_id +' /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E'
+EXEC msdb.dbo.sp_add_jobstep @job_name=N'Unload', @step_name=N'Unload', 
+		@step_id=1, 
+		@cmdexec_success_code=0, 
+		@on_success_action=1, 
+		@on_fail_action=2, 
+		@retry_attempts=0, 
+		@retry_interval=0, 
+		@os_run_priority=0, @subsystem=N'SSIS', 
+		@command=@command,
+		@database_name=N'master', 
+		@flags=0
+GO
+USE [msdb]
+GO
+EXEC msdb.dbo.sp_update_job @job_name=N'Unload', 
+		@enabled=1, 
+		@start_step_id=1, 
+		@notify_level_eventlog=0, 
+		@notify_level_email=2, 
+		@notify_level_page=2, 
+		@delete_level=0, 
+		@description=N'', 
+		@category_name=N'[Uncategorized (Local)]', 
+		@notify_email_operator_name=N'', 
+		@notify_page_operator_name=N''
+GO
+-- Add schedule
+EXEC sp_add_schedule @schedule_name = N'Unload', 
+		@freq_type = 4, 
+		@freq_interval = 1, 
+		@active_start_time = 070500;
+
+-- Attach job to schedule
+GO
+EXEC sp_attach_schedule  
+   		@job_name = N'Unload',  
+   		@schedule_name = N'Unload';

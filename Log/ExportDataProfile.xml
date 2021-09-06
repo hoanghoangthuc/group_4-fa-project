@@ -38,6 +38,9 @@
     <DtsDataSource ID="{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}" Name="SQL Server ADO">
       <DtsConnectionManagerID>SQL Server ADO</DtsConnectionManagerID>
     </DtsDataSource>
+    <DtsDataSource ID="{528CCF1F-39D2-478C-A00E-52CF83D90429}" Name="LogFile">
+      <DtsConnectionManagerID>LogFile</DtsConnectionManagerID>
+    </DtsDataSource>
   </DataSources>
   <DataProfileInput>
     <ProfileMode>Exact</ProfileMode>

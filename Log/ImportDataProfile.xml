@@ -38,6 +38,9 @@
     <DtsDataSource ID="{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}" Name="SQL Server ADO">
       <DtsConnectionManagerID>SQL Server ADO</DtsConnectionManagerID>
     </DtsDataSource>
+    <DtsDataSource ID="{528CCF1F-39D2-478C-A00E-52CF83D90429}" Name="LogFile">
+      <DtsConnectionManagerID>LogFile</DtsConnectionManagerID>
+    </DtsDataSource>
   </DataSources>
   <DataProfileInput>
     <ProfileMode>Exact</ProfileMode>
@@ -125,8 +128,8 @@
         <DataSourceID>{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}</DataSourceID>
         <Table DataSource="DESKTOP-MUE9P6C" Database="Project2" Schema="Staging" Table="Storage" RowCount="1000" />
         <Column Name="LastEditedWhen" SqlDbType="DateTime" MaxLength="0" Precision="255" Scale="255" LCID="-1" CodePage="0" IsNullable="false" StringCompareOptions="0" />
-        <MinValue>2021-09-06T08:50:01.0000000</MinValue>
-        <MaxValue>2021-09-06T08:50:01.0000000</MaxValue>
+        <MinValue>2021-09-06T17:00:56.0000000</MinValue>
+        <MaxValue>2021-09-06T17:00:56.0000000</MaxValue>
       </ColumnStatisticsProfile>
       <ColumnValueDistributionProfile IsExact="true" ProfileRequestID="ValueDistReq">
         <DataSourceID>{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}</DataSourceID>
@@ -743,7 +746,7 @@
         <NumberOfDistinctValues>1</NumberOfDistinctValues>
         <ValueDistribution>
           <ValueDistributionItem>
-            <Value>2021-09-06T08:50:01.0000000</Value>
+            <Value>2021-09-06T17:00:56.0000000</Value>
             <Count>1000</Count>
           </ValueDistributionItem>
         </ValueDistribution>
@@ -888,8 +891,8 @@
         <DataSourceID>{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}</DataSourceID>
         <Table DataSource="DESKTOP-MUE9P6C" Database="Project2" Schema="Staging" Table="Import" RowCount="8156" />
         <Column Name="LastEditedWhen" SqlDbType="DateTime" MaxLength="0" Precision="255" Scale="255" LCID="-1" CodePage="0" IsNullable="false" StringCompareOptions="0" />
-        <MinValue>2021-09-06T08:50:01.0000000</MinValue>
-        <MaxValue>2021-09-06T08:50:01.0000000</MaxValue>
+        <MinValue>2021-09-06T17:00:56.0000000</MinValue>
+        <MaxValue>2021-09-06T17:00:56.0000000</MaxValue>
       </ColumnStatisticsProfile>
       <ColumnValueDistributionProfile IsExact="true" ProfileRequestID="ValueDistReq1">
         <DataSourceID>{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}</DataSourceID>
@@ -5480,7 +5483,7 @@
         <NumberOfDistinctValues>1</NumberOfDistinctValues>
         <ValueDistribution>
           <ValueDistributionItem>
-            <Value>2021-09-06T08:50:01.0000000</Value>
+            <Value>2021-09-06T17:00:56.0000000</Value>
             <Count>8156</Count>
           </ValueDistributionItem>
         </ValueDistribution>

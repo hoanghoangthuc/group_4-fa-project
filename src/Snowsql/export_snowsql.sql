@@ -3,35 +3,28 @@
 
 select CURRENT_TIMESTAMP, CURRENT_USER;
 
-select 'export DIMDATE from snowflake' as Process;
-COPY INTO @%DIMDATE/Export_snowflake/DIMDATE.csv from PROJECT1.MODEL.DIMDATE file_format = (format_name ='CSV_FILE' compression=none) single = True max_file_size = 4900000000 OVERWRITE=TRUE;
-GET @%DIMDATE/Export_snowflake/DIMDATE.csv file://&{folder};
+select 'Export DimDate from snowflake' as Process;
+COPY INTO @%DimDate/Export_snowflake/DimDate.csv from DimDate file_format = (format_name ='stage.csv_file' compression=none) single = True max_file_size = 5000000000 OVERWRITE=TRUE;
+GET @%DimDate/Export_snowflake/DimDate.csv file://&{folder};
 
-select 'export DIMCUSTOMER from snowflake' as Process;
-COPY INTO @%DIMCUSTOMER/Export_snowflake/DIMCUSTOMER.csv from PROJECT1.MODEL.DIMCUSTOMER file_format = (format_name ='CSV_FILE' compression=none) single = True max_file_size = 4900000000 OVERWRITE=TRUE;
-GET @%DIMCUSTOMER/Export_snowflake/DIMCUSTOMER.csv file://&{folder};
+select 'Export DimLocation from snowflake' as Process;
+COPY INTO @%DimLocation/Export_snowflake/DimLocation.csv from DimLocation file_format = (format_name ='stage.csv_file' compression=none) single = True max_file_size = 5000000000 OVERWRITE=TRUE;
+GET @%DimLocation/Export_snowflake/DimLocation.csv file://&{folder};
 
-select 'export DIMLOCATION_WAREHOUSE from snowflake' as Process;
-COPY INTO @%DIMLOCATION_WAREHOUSE/Export_snowflake/DIMLOCATION_WAREHOUSE.csv from PROJECT1.MODEL.DIMLOCATION_WAREHOUSE file_format = (format_name ='CSV_FILE' compression=none) single = True max_file_size = 4900000000 OVERWRITE=TRUE;
-GET @%DIMLOCATION_WAREHOUSE/Export_snowflake/DIMLOCATION_WAREHOUSE.csv file://&{folder};
+select 'Export DimWarehouse from snowflake' as Process;
+COPY INTO @%DimWarehouse/Export_snowflake/DimWarehouse.csv from DimWarehouse file_format = (format_name ='stage.csv_file' compression=none) single = True max_file_size = 5000000000 OVERWRITE=TRUE;
+GET @%DimWarehouse/Export_snowflake/DimWarehouse.csv file://&{folder};
 
-select 'export DIMLOCATION_CUSTOMER from snowflake' as Process;
-COPY INTO @%DIMLOCATION_CUSTOMER/Export_snowflake/DIMLOCATION_CUSTOMER.csv from PROJECT1.MODEL.DIMLOCATION_CUSTOMER file_format = (format_name ='CSV_FILE' compression=none) single = True max_file_size = 4900000000 OVERWRITE=TRUE;
-GET @%DIMLOCATION_CUSTOMER/Export_snowflake/DIMLOCATION_CUSTOMER.csv file://&{folder};
+select 'Export DimProduct from snowflake' as Process;
+COPY INTO @%DimProduct/Export_snowflake/DimProduct.csv from DimProduct file_format = (format_name ='stage.csv_file' compression=none) single = True max_file_size = 5000000000 OVERWRITE=TRUE;
+GET @%DimProduct/Export_snowflake/DimProduct.csv file://&{folder};
 
-select 'export DIMPRODUCT from snowflake' as Process;
-COPY INTO @%DIMPRODUCT/Export_snowflake/DIMPRODUCT.csv from PROJECT1.MODEL.DIMPRODUCT file_format = (format_name ='CSV_FILE' compression=none) single = True max_file_size = 4900000000 OVERWRITE=TRUE;
-GET @%DIMPRODUCT/Export_snowflake/DIMPRODUCT.csv file://&{folder};
+select 'Export FactImport from snowflake' as Process;
+COPY INTO @%FactImport/Export_snowflake/FactImport.csv from FactImport file_format = (format_name ='stage.csv_file' compression=none) single = True max_file_size = 5000000000 OVERWRITE=TRUE;
+GET @%FactImport/Export_snowflake/FactImport.csv file://&{folder};
 
-select 'export DIMWAREHOUSE from snowflake' as Process;
-COPY INTO @%DIMWAREHOUSE/Export_snowflake/DIMWAREHOUSE.csv from PROJECT1.MODEL.DIMWAREHOUSE file_format = (format_name ='CSV_FILE' compression=none) single = True max_file_size = 4900000000 OVERWRITE=TRUE;
-GET @%DIMWAREHOUSE/Export_snowflake/DIMWAREHOUSE.csv file://&{folder};
+select 'Export FactExport from snowflake' as Process;
+COPY INTO @%FactExport/Export_snowflake/FactExport.csv from FactExport file_format = (format_name ='stage.csv_file' compression=none) single = True max_file_size = 5000000000 OVERWRITE=TRUE;
+GET @%FactExport/Export_snowflake/FactExport.csv file://&{folder};
 
-select 'export FACTRECORD from snowflake' as Process;
-COPY INTO @%FACTRECORD/Export_snowflake/FACTRECORD.csv from PROJECT1.MODEL.FACTRECORD file_format = (format_name ='CSV_FILE' compression=none) single = True max_file_size = 4900000000 OVERWRITE=TRUE;
-GET @%FACTRECORD/Export_snowflake/FACTRECORD.csv file://&{folder};
-
-
-
-
---!quit
+!quit
