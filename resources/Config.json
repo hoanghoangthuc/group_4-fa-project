@@ -1,12 +1,11 @@
 {
 
     "parameters": {
-        "customer_record": 50,
-        "product_record": 50,
-        "location_record":80,
-        "warehouse_record": 6,
-        "order_record": 200,
+        "customer_record": 1000,
+        "product_record": 1000,
+        "location_record": 1200,
+        "warehouse_record": 10,
         "start_date": "01-01-2017",
-        "end_date": "31-12-2017"
+        "end_date": "31-12-2018"
     }
 }

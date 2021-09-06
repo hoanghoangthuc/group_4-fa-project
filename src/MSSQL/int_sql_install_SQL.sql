@@ -1,218 +1,360 @@
-	/****** Object: CREATE DATABASE    Script Date: 8/11/2021 5:55:21 PM ******/
-	/****** Object: CREATE tABLE    Script Date: 8/11/2021 5:55:21 PM ******/
-	/****** Object: CREATE PRIMARY KEY [Stagging].[Customer]    Script Date: 8/11/2021 5:55:21 PM ******/
-	/****** Object: CREATE FOREIGN KEY    Script Date: 8/11/2021 5:55:21 PM ******/
-	IF DB_ID('MiniProject1') IS NOT NULL
-	DROP DATABASE MiniProject1;
-	Go
-	CREATE DATABASE [MiniProject1];
-	go
-	USE [MiniProject1]
-	GO
-	CREATE SCHEMA Stagging
-	go
+USE master;
+-- Create Project's Environment
+GO
+EXEC [SSISDB].[catalog].[create_environment] @environment_name=N'Project2', @environment_description=N'Set up variables for Project2 jobs.', @folder_name=N'Project2';
+GO
+-- Change sql_variant to your email
+DECLARE @var sql_variant = N'paq9695@gmail.com'
+EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'ErrorEmail', @sensitive=False,
+@description=N'Email address for receiving error alert', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String';
+GO
+-- Change sql_variant to your project path
+DECLARE @var sql_variant = N'E:\Project 2 - Topic 4\group_4-fa-project'
+EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'ProjectPath', @sensitive=False,
+@description=N'Path to Project folder', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String';
+GO
+-- Change sql_variant to your Snowflake account
+DECLARE @var sql_variant = N'fk36375.ap-southeast-1.snowflakecomputing.com'
+EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'SnowflakeAccount', @sensitive=False,
+@description=N'Snowflake Account', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
+GO
+-- Change sql_variant to your Snowflake password
+DECLARE @var sql_variant = N'Ab@019283'
+EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'SnowflakePassword', @sensitive=False,
+@description=N'Snowflake Password', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
+GO
+-- Change sql_variant to your Snowflake user
+DECLARE @var sql_variant = N'quanpa'
+EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'SnowflakeUser', @sensitive=False,
+@description=N'Snowflake User', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
+GO
+-- Change sql_variant to your Server Name
+DECLARE @var sql_variant = @@servername
+EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'Servername', @sensitive=False,
+@description=N'SQL Servername', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
+GO
 
-	/****** Object:  Create Table [Stagging].[datedimension]    Script Date: 8/11/2021 5:55:21 PM ******/
-	/****** Object:  If you need more time chane (Date and DateADD)    Script Date: 8/11/2021 5:55:21 PM ******/
+Declare @reference_id bigint
+EXEC [SSISDB].[catalog].[create_environment_reference] @environment_name=N'Project2', @reference_id=@reference_id OUTPUT, @project_name=N'Project2', @folder_name=N'Project2', @reference_type=R
+Select @reference_id
 
-	Create table [Stagging].[DateDimension] (
-		TheDate Date not null primary key,
-		TheDay  int not null,
-		TheDayName  varchar(20) not null,
-		TheWeek  int not null ,
-		TheISOWeek int not null,
-		TheDayOfWeek  int not null,
-		TheMonth        int not null,
-		TheMonthName    varchar(20) not null,
-		TheQuarter      int not null,
-		TheYear         int not null,
-		TheFirstOfMonth date not null,
-		TheLastOfYear   date not null,
-		TheDayOfYear   int not null)
+GO
+EXEC [SSISDB].[catalog].[set_object_parameter_value] @object_type=20, @parameter_name=N'ErrorEmail', @object_name=N'Project2', @folder_name=N'Project2', @project_name=N'Project2', @value_type=R, @parameter_value=N'ErrorEmail'
+GO
+EXEC [SSISDB].[catalog].[set_object_parameter_value] @object_type=20, @parameter_name=N'ProjectPath', @object_name=N'Project2', @folder_name=N'Project2', @project_name=N'Project2', @value_type=R, @parameter_value=N'ProjectPath'
+GO
+EXEC [SSISDB].[catalog].[set_object_parameter_value] @object_type=20, @parameter_name=N'SnowflakeAccount', @object_name=N'Project2', @folder_name=N'Project2', @project_name=N'Project2', @value_type=R, @parameter_value=N'SnowflakeAccount'
+GO
+EXEC [SSISDB].[catalog].[set_object_parameter_value] @object_type=20, @parameter_name=N'SnowflakePassword', @object_name=N'Project2', @folder_name=N'Project2', @project_name=N'Project2', @value_type=R, @parameter_value=N'SnowflakePassword'
+GO
+EXEC [SSISDB].[catalog].[set_object_parameter_value] @object_type=20, @parameter_name=N'SnowflakeUser', @object_name=N'Project2', @folder_name=N'Project2', @project_name=N'Project2', @value_type=R, @parameter_value=N'SnowflakeUser'
+GO
+EXEC [SSISDB].[catalog].[set_object_parameter_value] @object_type=20, @parameter_name=N'ServerName', @object_name=N'Project2', @folder_name=N'Project2', @project_name=N'Project2', @value_type=R, @parameter_value=N'Servername'
+GO
 
-	DECLARE @StartDate  date = '20170101'; --change start year from here--
+-- Create Database
+IF DB_ID('Project2') IS NOT NULL
+DROP DATABASE Project2;
+GO
+CREATE DATABASE [Project2];
+GO
+USE [Project2];
+GO
+CREATE SCHEMA Staging;
+GO
+CREATE SCHEMA Storing;
+GO
 
-	DECLARE @CutoffDate date = DATEADD(DAY, -1, DATEADD(YEAR, 1, @StartDate)); --change number year have use from start in DateADD (a, year should change,start year)
+-- Create Table
+CREATE TABLE [Staging].[Customer](
+	[Customer_ID] int PRIMARY KEY,
+	[name] [varchar](100) NOT NULL,
+	[username] [varchar](50) NOT NULL,
+	[sex] [varchar](1) NOT NULL,
+	[mail] [varchar](100) NOT NULL,
+	[birthdate] Datetime NULL,
+	[Location_ID] int NOT NULL,
+	[Phone] [varchar](50) NOT NUll,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL,
+);
 
-	;WITH seq(n) AS 
-	(
-	  SELECT 0 UNION ALL SELECT n + 1 FROM seq
-	  WHERE n < DATEDIFF(DAY, @StartDate, @CutoffDate)
-	),
-	d(d) AS 
-	(
-	  SELECT DATEADD(DAY, n, @StartDate) FROM seq
-	),
-	src AS
-	(
-	  SELECT
-		TheDate         = CONVERT(date, d),
-		TheDay          = DATEPART(DAY,       d),
-		TheDayName      = DATENAME(WEEKDAY,   d),
-		TheWeek         = DATEPART(WEEK,      d),
-		TheISOWeek      = DATEPART(ISO_WEEK,  d),
-		TheDayOfWeek    = DATEPART(WEEKDAY,   d),
-		TheMonth        = DATEPART(MONTH,     d),
-		TheMonthName    = DATENAME(MONTH,     d),
-		TheQuarter      = DATEPART(Quarter,   d),
-		TheYear         = DATEPART(YEAR,      d),
-		TheFirstOfMonth = DATEFROMPARTS(YEAR(d), MONTH(d), 1),
-		TheLastOfYear   = DATEFROMPARTS(YEAR(d), 12, 31),
-		TheDayOfYear    = DATEPART(DAYOFYEAR, d)
-	  FROM d
-	)
-	Insert Into  [Stagging].[DateDimension]
-	SELECT *
-	From src
-	 ORDER BY TheDate
-	 OPTION (MAXRECURSION 0);
+CREATE TABLE [Staging].[Location](
+	[Location_ID] Int PRIMARY KEY,
+	[Address] [varchar](100) NOT NULL,
+	[Lat] float NOT NULL,
+	[Long] float NOT NULL,
+	[City] [varchar](50) NOT NULL,
+	[Country_code] [varchar](2) NOT NULL,
+	[Country_name] [varchar](50) NOT NULL,
+	[States] [varchar](50) NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL,
+);
 
-	/****** Object: create Table [Stagging].[Customer]    Script Date: 8/11/2021 5:55:21 PM ******/
+CREATE TABLE [Staging].[Product](
+	[Product_ID] int PRIMARY KEY,
+	[Product_Name] [varchar](50) NOT NULL,
+	[Product_Category] [varchar](50) NULL,
+	[Product_Code] int NOT NULL,
+	[Weight] float NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL,
+);
 
-	CREATE TABLE [Stagging].[Customer](
-		[Customer_ID] int NOT NULL primary key,
-		[name] [varchar](20) NOT NULL,
-		[username] [varchar](50) NOT NULL,
-		[sex] [varchar](1) NOT NULL,
-		[mail] [varchar](100) NOT NULL,
-		[birthdate] Datetime NULL,
-		[Location_ID] int NOT NULL,
-		[Phone] [varchar](15) not NUll
-	) ON [PRIMARY]
-	GO
+CREATE TABLE [Staging].[Export](
+	[Order_ID] int PRIMARY KEY,
+	[Product_ID] int NOT NULL,
+	[Customer_ID] int NOT NULL,
+	[Quantity] int NOT NULL,
+	[Date_Order] date NOT NULL,
+	[Date_Ship] date NOT NULL,
+	[Date_due] date NOT NULL,
+	[Ship_Distance] float NOT NULL,
+	[Ship_Cost] float NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL,
+);
 
-	/****** Object: create Table [Stagging].[LoCation]    Script Date: 8/11/2021 5:55:21 PM ******/
+CREATE TABLE [Staging].[Warehouse](
+	[Warehouse_ID] int PRIMARY KEY,
+	[Warehouse_Name] [varchar](100) NOT NULL,
+	[Warehouse_cost] float NOT NULL,
+	[Location_ID] int NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL,
+);
 
-	CREATE TABLE [Stagging].[Location](
-		[Location_ID] Int NOT NULL primary key,
-		[Address] [varchar](100) NOT NULL,
-		[Lat] float NOT NULL,
-		[Long] float NOT NULL,
-		[Post_Code] int NOT NULL,
-		[City] [varchar](20) NOT NULL,
-		[Country_code] [varchar](2) NOT NULL,
-		[Country_name] [varchar](20) NOT NULL,
-		[States] [varchar](30) NOT NULL
-	) ON [PRIMARY]
-	GO
+CREATE TABLE [Staging].[Storage](
+	[StorageID] [int] PRIMARY KEY,
+	[Product_ID] [int] NOT NULL,
+	[Warehouse_ID] [int] NOT NULL,
+	[Capacity] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL
+);
 
-	/****** Object:  Create Table [Stagging].[Product]    Script Date: 8/11/2021 5:55:21 PM ******/
+CREATE TABLE [Staging].[Supplier](
+	[Supplier_ID] [int] PRIMARY KEY,
+	[Supplier_Name] [varchar](50) NOT NULL,
+	[Location_ID] [int] NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL
+);
 
-	CREATE TABLE [Stagging].[Product](
-		[Warehouse_ID] int NOT NULL,
-		[Product_ID] int not NULL primary key,
-		[Product_Name] [varchar](50) NOT NULL,
-		[Product_SubCategory] [varchar](50) NULL,
-		[Product_Color] [varchar](20) NOt NULL,
-		[Standard_Cost] float NOT NULL,
-		[General_Price] float NOT NULL,
-		[Product_Number] int NOT NULL,
-		[Sale_DateStart] Datetime NULL,
-		[Sale_DateEnd] Datetime NULL,
-		[Import_Flag] BIT NULL
-	) ON [PRIMARY]
-	GO
+CREATE TABLE [Staging].[Import](
+	[Import_ID] [int] PRIMARY KEY,
+	[Product_ID] [int] NOT NULL,
+	[Warehouse_ID] [int] NOT NULL,
+	[Supplier_ID] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[Ship_Distance] [float] NOT NULL,
+	[Ship_Cost] [float] NOT NULL,
+	[Import_Date] [date] NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL
+);
 
-	/****** Object:  Create Table [Stagging].[record]    Script Date: 8/11/2021 5:55:21 PM ******/
+CREATE TABLE [Storing].[Product](
+	[Product_ID] [int] IDENTITY(1,1) PRIMARY KEY,
+	[Source_Product_ID] [int] NOT NULL,
+	[Product_Code] [int] NOT NULL,
+	[Product_Name] [varchar](50) NOT NULL,
+	[Product_Category] [varchar](50) NULL,
+	[Weight] [float] NOT NULL,
+	[Current] [bit] NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL
+);
 
-	CREATE TABLE [Stagging].[Record](
-		[Order_ID] int NOT NULL ,
-		[Product_ID] int not NULL,
-		[Customer_ID] int not NULL,
-		[Product_Values] float not NULL,
-		[General_Price] float not NULL,
-		[Tax] float not NULL,
-		[Total_Cost] float not NULL,
-		[Date_Order] date not NULL,
-		[Date_Ship] date not NULL,
-		[Date_due] date not NULL,
-		[Ship_Distance] float not NULL,
-		[Ship_Cost] float not NULL
-		CONSTRAINT PK_RECORD PRIMARY KEY ([PRODUCT_ID],[Customer_ID],[Date_Order])
-	) ON [PRIMARY]
-	GO
+CREATE TABLE [Storing].[Location](
+	[Location_ID] [int] IDENTITY(1,1) PRIMARY KEY,
+	[Source_Location_ID] [int] NOT NULL,
+	[Address] [varchar](100) NOT NULL,
+	[Lat] [float] NOT NULL,
+	[Long] [float] NOT NULL,
+	[City] [varchar](50) NOT NULL,
+	[Country_code] [varchar](2) NOT NULL,
+	[Country_name] [varchar](50) NOT NULL,
+	[States] [varchar](50) NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL
+);
 
-	/****** Object:  Create Table [Stagging].[Warehouse]    Script Date: 8/11/2021 5:55:21 PM ******/
+CREATE TABLE [Storing].[Customer](
+	[Customer_ID] [int] IDENTITY(1,1) PRIMARY KEY,
+	[Source_Customer_ID] [int] NOT NULL,
+	[name] [varchar](100) NOT NULL,
+	[username] [varchar](50) NOT NULL,
+	[sex] [varchar](1) NOT NULL,
+	[mail] [varchar](100) NOT NULL,
+	[birthdate] [date] NULL,
+	[Location_ID] [int] NOT NULL,
+	[Phone] [varchar](50) NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[Current] [bit] NULL,
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL,
+    FOREIGN KEY (Location_ID) REFERENCES [Storing].[Location](Location_ID)
+);
 
-	CREATE TABLE [Stagging].[Warehouse](
-		[Warehouse_ID] int not NULL primary key,
-		[Warehouse_Name] [varchar](100) not NULL,
-		[Warehouse_cost] float not NULL,
-		[Location_ID] int not NULL
-	) ON [PRIMARY]
-	GO
+CREATE TABLE [Storing].[Supplier](
+	[Supplier_ID] [int] IDENTITY(1,1) PRIMARY KEY,
+	[Source_Supplier_ID] [int] NOT NULL,
+	[Supplier_Name] [varchar](50) NOT NULL,
+	[Location_ID] [int] NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL,
+	FOREIGN KEY (Location_ID) REFERENCES [Storing].[Location](Location_ID)
+);
 
-	/****** Object:  Foregin Key    Script Date: 8/11/2021 5:55:21 PM ******/
+CREATE TABLE [Storing].[Warehouse](
+	[Warehouse_ID] [int] IDENTITY(1,1) PRIMARY KEY,
+	[Source_Warehouse_ID] [int] NOT NULL,
+	[Warehouse_Name] [varchar](100) NOT NULL,
+	[Warehouse_cost] [float] NOT NULL,
+	[Location_ID] [int] NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL,
+    FOREIGN KEY (Location_ID) REFERENCES [Storing].[Location](Location_ID)
+);
 
-	ALTER TABLE [Stagging].[Customer]
-	ADD CONSTRAINT FK_Customer
-	FOREIGN KEY (Location_ID) REFERENCES [Stagging].[Location](Location_ID);
+CREATE TABLE [Storing].[Storage](
+	[StorageID] [int] IDENTITY(1,1) PRIMARY KEY,
+	[Source_StorageID] [int] NOT NULL,
+	[Product_ID] [int] NOT NULL,
+	[Warehouse_ID] [int] NOT NULL,
+	[Capacity] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL
+    FOREIGN KEY ([Product_ID]) REFERENCES [Storing].[Product]([Product_ID]),
+    FOREIGN KEY ([Warehouse_ID]) REFERENCES [Storing].[Warehouse]([Warehouse_ID])
+);
 
-	ALTER TABLE [Stagging].[Warehouse]
-	ADD CONSTRAINT FK_warehouse
-	FOREIGN KEY (Location_ID) REFERENCES [Stagging].[Location](Location_ID);
+CREATE TABLE [Storing].[Export](
+	[Order_ID] [int] IDENTITY(1,1) PRIMARY KEY,
+	[Source_Order_ID] [int] NOT NULL,
+	[Product_ID] [int] NOT NULL,
+	[Customer_ID] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[Date_Order] [date] NOT NULL,
+	[Date_Ship] [date] NOT NULL,
+	[Date_due] [date] NOT NULL,
+	[Ship_Distance] [float] NOT NULL,
+	[Ship_Cost] [float] NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL,
+    FOREIGN KEY ([Product_ID]) REFERENCES [Storing].[Product]([Product_ID]),
+    FOREIGN KEY ([Customer_ID]) REFERENCES [Storing].[Customer]([Customer_ID]),
+);
 
-	ALTER TABLE [Stagging].[Product]
-	ADD CONSTRAINT FK_Product
-	FOREIGN KEY (Warehouse_ID) REFERENCES [Stagging].[Warehouse](Warehouse_ID);
+CREATE TABLE [Storing].[Import](
+	[ImportID] [int] IDENTITY(1,1) PRIMARY KEY,
+	[Source_Import_ID] [int] NOT NULL,
+	[Product_ID] [int] NOT NULL,
+	[Warehouse_ID] [int] NOT NULL,
+	[Supplier_ID] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[Ship_Distance] [float] NOT NULL,
+	[Ship_Cost] [float] NOT NULL,
+	[Import_Date] [date] NOT NULL,
+	[uuid] [uniqueidentifier] DEFAULT newid(),
+	[LastEditedBy] [nvarchar](64) NOT NULL,
+	[LastEditedWhen] [datetime] NOT NULL,
+    FOREIGN KEY ([Product_ID]) REFERENCES [Storing].[Product]([Product_ID]),
+    FOREIGN KEY ([Supplier_ID]) REFERENCES [Storing].[Supplier]([Supplier_ID]),
+    FOREIGN KEY ([Warehouse_ID]) REFERENCES [Storing].[Warehouse]([Warehouse_ID])
+);
 
-	ALTER TABLE [Stagging].[Record]
-	ADD CONSTRAINT FK_record_product
-	FOREIGN KEY (Product_ID) REFERENCES [Stagging].[Product](Product_ID);
+GO
+sp_configure 'show advanced options', 1;
+GO
+RECONFIGURE;
+GO
+sp_configure 'Database Mail XPs', 1;
+GO
+RECONFIGURE
+GO	
+-- Create a Database Mail profile
+IF 'Notifications' IN (SELECT [name] FROM [msdb].[dbo].[sysmail_profile])
+	EXECUTE msdb.dbo.sysmail_delete_profile_sp
+    @profile_name = 'Notifications';
 
-	ALTER TABLE [Stagging].[Record]
-	ADD CONSTRAINT FK_record_Customer
-	FOREIGN KEY (Customer_ID) REFERENCES [Stagging].[Customer](Customer_ID);
+EXECUTE msdb.dbo.sysmail_add_profile_sp  
+    @profile_name = 'Notifications',  
+    @description = 'Profile used for sending error log using Gmail.' ;  
+GO
+-- Grant access to the profile to the DBMailUsers role  
+EXECUTE msdb.dbo.sysmail_add_principalprofile_sp  
+    @profile_name = 'Notifications',  
+    @principal_name = 'public',  
+    @is_default = 1 ;
+GO
 
-	ALTER TABLE [Stagging].[Record]
-	ADD CONSTRAINT FK_record_Date_Order
-	FOREIGN KEY (Date_Order) REFERENCES [Stagging].[DateDimension](TheDate);
+IF 'Gmail' IN (SELECT [name] FROM [msdb].[dbo].[sysmail_account])
+	EXECUTE msdb.dbo.sysmail_delete_account_sp
+	@account_name = 'Gmail';
 
-	ALTER TABLE [Stagging].[Record]
-	ADD CONSTRAINT FK_record_Date_due
-	FOREIGN KEY (Date_due) REFERENCES [Stagging].[DateDimension](TheDate);
+-- Create a Database Mail account  
+EXECUTE msdb.dbo.sysmail_add_account_sp  
+    @account_name = 'Gmail',  
+    @description = 'Mail account for sending error log notifications.',  
+    @email_address = 'dummyforssis@gmail.com',  
+    @display_name = 'Automated Mailer',  
+    @mailserver_name = 'smtp.gmail.com',
+	@mailserver_type = 'SMTP',
+    @port = 587,
+    @enable_ssl = 1,
+    @username = 'dummyforssis@gmail.com',
+    @password = 'Ab@123456' ;  
+GO
 
-	ALTER TABLE [Stagging].[Record]
-	ADD CONSTRAINT FK_record_Date_Ship
-	FOREIGN KEY (Date_Ship) REFERENCES [Stagging].[DateDimension](TheDate);
-	GO
+-- Add the account to the profile  
+EXECUTE msdb.dbo.sysmail_add_profileaccount_sp  
+    @profile_name = 'Notifications',  
+    @account_name = 'Gmail',  
+    @sequence_number = 1;  
+GO
 
-	/* Trigger*/
-	/* Trigger*/
-	/* Trigger*/
+-- Create Proxy
+USE [msdb]
+IF 'runcmd' IN (SELECT [name] FROM [msdb].[dbo].[sysproxies])
+	EXEC msdb.dbo.sp_delete_proxy @proxy_name=N'runcmd';
+GO
+EXEC msdb.dbo.sp_add_proxy @proxy_name=N'runcmd', @credential_name=N'runcmd', 
+		@enabled=1;
 
-
-	/* Trigger Dathang */
-	CREATE TRIGGER Dathang ON Stagging.Record AFTER INSERT AS 
-	BEGIN
-		UPDATE Stagging.Product
-		SET Product_Number = Product_Number - (
-			SELECT count(Order_ID)
-			FROM inserted
-			WHERE Product_ID = Stagging.Product.Product_ID
-			Group by Product_ID
-		)
-		FROM Stagging.Product
-		JOIN inserted ON Stagging.Product.Product_ID = inserted.Product_ID
-	END
-	GO
-	/* Trigger capnhat */
-	CREATE TRIGGER capnhat on Stagging.Record after update AS
-	BEGIN
-	   UPDATE Stagging.Product 
-	   SET Product_Number = Product_Number -
-		   (SELECT count(Order_ID) FROM inserted WHERE Product_ID = Stagging.Product.Product_ID Group by Product_ID) +
-		   (SELECT count(Order_ID) FROM deleted WHERE Product_ID = Stagging.Product.Product_ID Group by Product_ID)
-	   FROM Stagging.Product 
-	   JOIN deleted ON Stagging.Product.Product_ID = deleted.Product_ID
-	end
-	GO
-	/* Trigger huyhang */
-	create TRIGGER huydathang ON Stagging.Record FOR DELETE AS 
-	BEGIN
-		UPDATE Stagging.Product
-		SET Product_Number = Product_Number + 
-		(SELECT count(Order_ID) FROM deleted WHERE Product_ID = Stagging.Product.Product_ID Group by Product_ID)
-		FROM Stagging.Product 
-		JOIN deleted ON Stagging.Product.Product_ID = deleted.Product_ID
-	END
+USE msdb
+EXEC msdb.dbo.sp_grant_proxy_to_subsystem
+@proxy_name=N'runcmd',
+@subsystem_name='CmdExec' 
+GO
+EXEC msdb.dbo.sp_grant_proxy_to_subsystem
+@proxy_name=N'runcmd',
+@subsystem_name='ANALYSISQUERY'
+GO
+EXEC msdb.dbo.sp_grant_proxy_to_subsystem
+@proxy_name=N'runcmd',
+@subsystem_name='ANALYSISCOMMAND'
+GO
+EXEC msdb.dbo.sp_grant_proxy_to_subsystem
+@proxy_name=N'runcmd',
+@subsystem_name='Dts'
+GO
+USE [msdb]

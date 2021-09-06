@@ -22,9 +22,6 @@ class ParamObject:
     def warehouse_record(self):
         return self.warehouse_record
 
-    def order_record(self):
-        return self.order_record
-
     def start_date(self):
         return self.start_date
         
@@ -37,6 +34,5 @@ with open('Config.json') as json_data_file:
         ParamObject.product_record = data['parameters']['product_record']
         ParamObject.location_record = data['parameters']['location_record']
         ParamObject.warehouse_record = data['parameters']['warehouse_record']
-        ParamObject.order_record = data['parameters']['order_record']
         ParamObject.start_date = data['parameters']['start_date']
         ParamObject.end_date = data['parameters']['end_date']

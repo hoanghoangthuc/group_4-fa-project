@@ -1,0 +1,11 @@
+Warehouse_ID,Warehouse_Name,Warehouse_cost,Location_ID
+0,New_York_WH1161,2078,1161
+1,Indiana/Indianapolis_WH913,2850,913
+2,Chicago_WH816,1855,816
+3,New_York_WH527,2537,527
+4,New_York_WH291,1808,291
+5,Chicago_WH1187,2591,1187
+6,New_York_WH643,1221,643
+7,New_York_WH145,2868,145
+8,Detroit_WH1158,2121,1158
+9,Chicago_WH559,2075,559

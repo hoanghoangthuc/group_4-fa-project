@@ -1,499 +1,340 @@
-CREATE DATABASE IF NOT EXISTS  PROJECT1;
-CREATE WAREHOUSE IF NOT EXISTS STAGE
-WITH WAREHOUSE_SIZE = 'MEDIUM'
+USE ROLE SYSADMIN;
+-- Create Warehouse
+CREATE WAREHOUSE IF NOT EXISTS LOAD_WH
+WITH WAREHOUSE_SIZE = 'SMALL'
 WAREHOUSE_TYPE = 'STANDARD' 
-AUTO_SUSPEND = 600 
+AUTO_SUSPEND = 60 
 AUTO_RESUME = TRUE;
-Create Schema IF NOT EXISTS  STAGE;  
-Create Schema IF NOT EXISTS  NDS; 
-Create Schema IF NOT EXISTS  MODEL; 
 
- 
+CREATE WAREHOUSE IF NOT EXISTS PROJECT2_WH
+WITH WAREHOUSE_SIZE = 'SMALL'
+WAREHOUSE_TYPE = 'STANDARD' 
+AUTO_SUSPEND = 60 
+AUTO_RESUME = TRUE;
 
-CREATE FILE FORMAT IF NOT EXISTS "PROJECT1"."STAGE".CSV_FILE 
+CREATE WAREHOUSE IF NOT EXISTS POWERBI_WH
+WITH WAREHOUSE_SIZE = 'SMALL'
+WAREHOUSE_TYPE = 'STANDARD' 
+AUTO_SUSPEND = 60 
+AUTO_RESUME = TRUE;
+
+-- Create Database and Schema
+CREATE OR REPLACE DATABASE PROJECT2;
+USE DATABASE PROJECT2;
+
+CREATE SCHEMA IF NOT EXISTS STAGE;  
+CREATE SCHEMA IF NOT EXISTS NDS; 
+CREATE SCHEMA IF NOT EXISTS MODEL; 
+
+-- Create File format
+USE SCHEMA STAGE;
+CREATE FILE FORMAT IF NOT EXISTS STAGE.CSV_FILE 
 TYPE = 'CSV' COMPRESSION = 'AUTO' FIELD_DELIMITER = ',' 
 RECORD_DELIMITER = '\n' SKIP_HEADER = 0 FIELD_OPTIONALLY_ENCLOSED_BY = 'NONE' 
 TRIM_SPACE = FALSE ERROR_ON_COLUMN_COUNT_MISMATCH = TRUE ESCAPE = 'NONE' 
 ESCAPE_UNENCLOSED_FIELD = '\134' DATE_FORMAT = 'AUTO' TIMESTAMP_FORMAT = 'AUTO' 
 NULL_IF = ('\\N');
 
- 
-
-
-USE ROLE SYSADMIN;
-USE DATABASE PROJECT1;   
-USE WAREHOUSE STAGE;
+-- Create Table
 USE SCHEMA STAGE;
-select CURRENT_DATABASE(), CURRENT_SCHEMA(), CURRENT_WAREHOUSE();
+CREATE TABLE Stage.Customer(
+	Customer_ID int PRIMARY KEY,
+	Name varchar(100) NOT NULL,
+	Username varchar(50) NOT NULL,
+	Sex varchar(1) NOT NULL,
+	Mail varchar(100) NOT NULL,
+	Birthdate Datetime NULL,
+	Location_ID int NOT NULL,
+	Phone varchar(50) NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL
+);
 
- 
+CREATE TABLE Stage.Location(
+	Location_ID Int PRIMARY KEY,
+	Address varchar(100) NOT NULL,
+	Lat float NOT NULL,
+	Long float NOT NULL,
+	City varchar(50) NOT NULL,
+	Country_code varchar(2) NOT NULL,
+	Country_name varchar(50) NOT NULL,
+	States varchar(50) NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL
+);
+
+CREATE TABLE Stage.Product(
+	Product_ID int PRIMARY KEY,
+	Product_Name varchar(50) NOT NULL,
+	Product_Category varchar(50) NULL,
+	Product_Code int NOT NULL,
+	Weight float NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL
+);
+
+CREATE TABLE Stage.Export(
+	Order_ID int PRIMARY KEY,
+	Product_ID int NOT NULL,
+	Customer_ID int NOT NULL,
+	Quantity int NOT NULL,
+	Date_Order date NOT NULL,
+	Date_Ship date NOT NULL,
+	Date_due date NOT NULL,
+	Ship_Distance float NOT NULL,
+	Ship_Cost float NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL
+);
+
+CREATE TABLE Stage.Warehouse(
+	Warehouse_ID int PRIMARY KEY,
+	Warehouse_Name varchar(100) NOT NULL,
+	Warehouse_cost float NOT NULL,
+	Location_ID int NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL
+);
+
+CREATE TABLE Stage.Storage(
+	StorageID int PRIMARY KEY,
+	Product_ID int NOT NULL,
+	Warehouse_ID int NOT NULL,
+	Capacity int NOT NULL,
+	Quantity int NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL
+);
+
+CREATE TABLE Stage.Supplier(
+	Supplier_ID int PRIMARY KEY,
+	Supplier_Name varchar(50) NOT NULL,
+	Location_ID int NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL
+);
+
+CREATE TABLE Stage.Import(
+	Import_ID int PRIMARY KEY,
+	Product_ID int NOT NULL,
+	Warehouse_ID int NOT NULL,
+	Supplier_ID int NOT NULL,
+	Quantity int NOT NULL,
+	Ship_Distance float NOT NULL,
+	Ship_Cost float NOT NULL,
+	Import_Date date NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL
+);
+
+USE SCHEMA NDS;
+CREATE TABLE NDS.Location(
+	Location_ID int IDENTITY(1,1) PRIMARY KEY,
+	Source_Location_ID int NOT NULL,
+	Address varchar(100) NOT NULL,
+	Lat float NOT NULL,
+	Long float NOT NULL,
+	City varchar(50) NOT NULL,
+	Country_code varchar(2) NOT NULL,
+	Country_name varchar(50) NOT NULL,
+	States varchar(50) NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL
+);
+
+CREATE TABLE NDS.Product(
+	Product_ID int IDENTITY(1,1) PRIMARY KEY,
+	Source_Product_ID int NOT NULL,
+	Product_Name varchar(50) NOT NULL,
+	Product_Category varchar(50) NULL,
+	Product_Code int NOT NULL,
+	Weight float NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL
+);
+
+CREATE TABLE NDS.Customer(
+	Customer_ID int IDENTITY(1,1) PRIMARY KEY,
+	Source_Customer_ID int NOT NULL,
+	Name varchar(100) NOT NULL,
+	Username varchar(50) NOT NULL,
+	Sex varchar(1) NOT NULL,
+	Mail varchar(100) NOT NULL,
+	Birthdate Datetime NULL,
+	Location_ID int NOT NULL,
+	Phone varchar(50) NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL,
+    FOREIGN KEY (Location_ID) REFERENCES NDS.Location(Location_ID)
+);
+
+CREATE TABLE NDS.Warehouse(
+	Warehouse_ID int IDENTITY(1,1) PRIMARY KEY,
+	Source_Warehouse_ID int NOT NULL,
+	Warehouse_Name varchar(100) NOT NULL,
+	Warehouse_cost float NOT NULL,
+	Location_ID int NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL,
+    FOREIGN KEY (Location_ID) REFERENCES NDS.Location(Location_ID)
+);
+
+CREATE TABLE NDS.Storage(
+	StorageID int IDENTITY(1,1) PRIMARY KEY,
+	Source_StorageID int NOT NULL,
+	Product_ID int NOT NULL,
+	Warehouse_ID int NOT NULL,
+	Capacity int NOT NULL,
+	Quantity int NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL,
+    FOREIGN KEY (Product_ID) REFERENCES NDS.Product(Product_ID),
+    FOREIGN KEY (Warehouse_ID) REFERENCES NDS.Warehouse(Warehouse_ID)
+);
+
+CREATE TABLE NDS.Supplier(
+	Supplier_ID int IDENTITY(1,1) PRIMARY KEY,
+	Source_Supplier_ID int NOT NULL,
+	Supplier_Name varchar(50) NOT NULL,
+	Location_ID int NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL,
+    FOREIGN KEY (Location_ID) REFERENCES NDS.Location(Location_ID)
+);
 
 
+CREATE TABLE NDS.Export(
+	Order_ID int IDENTITY(1,1) PRIMARY KEY,
+	Source_Order_ID int NOT NULL,
+	Product_ID int NOT NULL,
+	Customer_ID int NOT NULL,
+	Quantity int NOT NULL,
+	Date_Order date NOT NULL,
+	Date_Ship date NOT NULL,
+	Date_due date NOT NULL,
+	Ship_Distance float NOT NULL,
+	Ship_Cost float NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL,
+    FOREIGN KEY (Product_ID) REFERENCES NDS.Product(Product_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES NDS.Customer(Customer_ID)
+);
+
+CREATE TABLE NDS.Import(
+	ImportID int IDENTITY(1,1) PRIMARY KEY,
+	Source_Import_ID int NOT NULL,
+	Product_ID int NOT NULL,
+	Warehouse_ID int NOT NULL,
+	Supplier_ID int NOT NULL,
+	Quantity int NOT NULL,
+	Ship_Distance float NOT NULL,
+	Ship_Cost float NOT NULL,
+	Import_Date date NOT NULL,
+	uuid varchar(50) NOT NULL,
+	LastEditedBy nvarchar(64) NOT NULL,
+	LastEditedWhen datetime NOT NULL,
+    FOREIGN KEY (Product_ID) REFERENCES NDS.Product(Product_ID),
+    FOREIGN KEY (Warehouse_ID) REFERENCES NDS.Warehouse(Warehouse_ID),
+    FOREIGN KEY (Supplier_ID) REFERENCES NDS.Supplier(Supplier_ID)
+);
+
+USE SCHEMA MODEL;
+
+CREATE TABLE IF NOT EXISTS MODEL.DimDate (
+    Date Date not null primary key,
+    Day int not null,
+    Week int not null ,
+    DayOfWeek int not null,
+    Month int not null,
+    MonthName varchar(50) not null,
+    Quarter int not null,
+    Year int not null)
+AS
+  WITH CTE_DATE AS (
+    SELECT DATEADD(DAY, SEQ4(), '2010-01-01') AS Date
+      FROM TABLE(GENERATOR(ROWCOUNT=>10000))  -- Number of days after reference date in previous line
+  )
+  SELECT Date, DAY(Date), WEEKOFYEAR(Date), DAYOFWEEK(Date), MONTH(Date), MONTHNAME(Date), QUARTER(Date), YEAR(Date) FROM CTE_DATE;
   
-
- 
-
---Schema stage--
---Schema stage--
---Schema stage--
-
- 
-
- 
-
-CREATE TABLE IF NOT EXISTS STAGE.Datetime (
-    TheDate Date not null primary key,
-    TheDay  int not null,
-    TheDayName  varchar(20) not null,
-    TheWeek  int not null ,
-    TheISOWeek int not null,
-    TheDayOfWeek  int not null,
-    TheMonth        int not null,
-    TheMonthName    varchar(20) not null,
-    TheQuarter      int not null,
-    TheYear         int not null,
-    TheFirstOfMonth date not null,
-    TheLastOfYear   date not null,
-    TheDayOfYear   int not null);
-
- 
-
-/****** Object: create Table Stagging.Customer    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS STAGE.Customer(                             
-    Customer_Na int NOT NULL primary key,
-    name varchar(20) NOT NULL,
-    username varchar(100) NOT NULL,
-    sex varchar(1) NOT NULL,
-    mail varchar(100) NOT NULL,
-    birthdate Datetime NULL,
-    Location_Na int NOT NULL,
-    Phone varchar(15) not NUll);
-
- 
-
-/****** Object: create Table Stagging.LoCation    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS STAGE.Location(
-    Location_Na Int NOT NULL primary key,
+CREATE TABLE IF NOT EXISTS MODEL.DimLocation (
+    LocationKey int IDENTITY(1,1) PRIMARY KEY,
+    Location_ID int NOT NULL,
+	Lat float NOT NULL,
+	Long float NOT NULL,
     Address varchar(100) NOT NULL,
-    Lat float NOT NULL,
-    Long float NOT NULL,
-    Post_Code int NOT NULL,
-    City varchar(20) NOT NULL,
-    Country_code varchar(2) NOT NULL,
-    Country_name varchar(20) NOT NULL,
-    States varchar(30) NOT NULL);
-
- 
-
-/****** Object:  Create Table Stagging.Product    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS STAGE.Product(
-    Warehouse_Na int NOT NULL,
-    Product_Na int not NULL primary key,
-    Product_Name varchar(50) NOT NULL,
-    Product_SubCategory varchar(50) NULL,
-    Product_Color varchar(20) NOt NULL,
-    Standard_Cost float NOT NULL,
-    General_Price float NOT NULL,
-    Product_Number int NOT NULL,
-    Sale_DateStart Datetime NULL,
-    Sale_DateEnd Datetime NULL,
-    Import_Flag Boolean NULL);
-
- 
-
-/****** Object:  Create Table Stagging.record    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS Stage.Record(
-    Order_Na int NOT NULL,
-    Product_Na int not NULL,
-    Customer_Na int not NULL,
-    Product_Values float not NULL,
-    General_Price float not NULL,
-    Tax float not NULL,
-    Total_Cost float not NULL,
-    Date_Order date not NULL,
-    Date_Ship date not NULL,
-    Date_due date not NULL,
-    Ship_Distance float not NULL,
-    Ship_Cost float not NULL,
-     CONSTRAINT PK_RECORD
-    PRIMARY KEY (PRODUCT_Na,Customer_Na,Date_Order));
-
- 
-
-CREATE TABLE IF NOT EXISTS STAGE.Warehouse(
-    Warehouse_Na int not NULL primary key,
-    Warehouse_Name varchar(100) not NULL,
-    Warehouse_cost float not NULL,
-    Location_Na int not NULL);
-
- 
-
-
---Schema NDS--
---Schema NDS--
---Schema NDS--
-
- 
-
-
-/****** Object:  Create Table NDS.Warehouse    Script Date: 8/11/2021 5:55:21 PM ******/
-
-  
-
-CREATE TABLE IF NOT EXISTS NDS.Datetime (
-    TheDate Date not null primary key,
-    TheDay  int not null,
-    TheDayName  varchar(20) not null,
-    TheWeek  int not null ,
-    TheISOWeek int not null,
-    TheDayOfWeek  int not null,
-    TheMonth        int not null,
-    TheMonthName    varchar(20) not null,
-    TheQuarter      int not null,
-    TheYear         int not null,
-    TheFirstOfMonth date not null,
-    TheLastOfYear   date not null,
-    TheDayOfYear   int not null);
-
- 
-
-/****** Object: create Table Stagging.Customer    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS NDS.Customer(   
-	Customer_ID int IDENTITY(1,1)  primary key,
-    Customer_Na int NOT NULL,
-    name varchar(20) NOT NULL,
-    username varchar(100) NOT NULL,
-    sex varchar(1) NOT NULL,
-    mail varchar(100) NOT NULL,
-    birthdate Datetime NULL,
-    Location_Na int NOT NULL,
-    Phone varchar(15) not NUll,
-	Location_ID int NULL);
-
-
-/****** Object: create Table Stagging.LoCation    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS NDS.Location_Warehouse(
-	Location_ID int IDENTITY(1,1)  primary key,
-    Location_Na Int NOT NULL ,
-    Address varchar(100) NOT NULL,
-    Lat float NOT NULL,
-    Long float NOT NULL,
-    Post_Code int NOT NULL,
-    City varchar(20) NOT NULL,
-    Country_code varchar(2) NOT NULL,
-    Country_name varchar(20) NOT NULL,
-    States varchar(30) NOT NULL);
-
- 
-/****** Object: create Table Stagging.LoCation    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS NDS.Location_Customer(
-	Location_ID int IDENTITY(1,1)  primary key,
-    Location_Na Int NOT NULL ,
-    Address varchar(100) NOT NULL,
-    Lat float NOT NULL,
-    Long float NOT NULL,
-    Post_Code int NOT NULL,
-    City varchar(20) NOT NULL,
-    Country_code varchar(2) NOT NULL,
-    Country_name varchar(20) NOT NULL,
-    States varchar(30) NOT NULL);
-/****** Object:  Create Table Stagging.Product    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS NDS.Product(
-	Product_ID int IDENTITY(1,1)  primary key,
-    Product_Na int not NULL,
-    Product_Name varchar(50) NOT NULL,
-    Product_SubCategory varchar(50) NULL,
-    Product_Color varchar(20) NOt NULL,
-    Standard_Cost float NOT NULL,
-    General_Price float NOT NULL,
-    Product_Number int NOT NULL,
-    Sale_DateStart Datetime NULL,
-    Sale_DateEnd Datetime NULL,
-    Import_Flag Boolean NULL,
-	Warehouse_Na int NOT NULL,
-	Warehouse_ID int NULL);
-
- 
-
-/****** Object:  Create Table Stagging.record    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS NDS.Record(
-	Order_ID int IDENTITY(1,1)  primary key,
-    Order_Na int NOT NULL,
-    Product_Na int not NULL,
-    Customer_Na int not NULL,
-	Product_ID int  NULL,
-    Customer_ID int  NULL,
-    Product_Values float not NULL,
-    General_Price float not NULL,
-    Tax float not NULL,
-    Total_Cost float not NULL,
-    Date_Order date not NULL,
-    Date_Ship date not NULL,
-    Date_due date not NULL,
-    Ship_Distance float not NULL,
-    Ship_Cost float not NULL);
-
- 
-
-CREATE TABLE IF NOT EXISTS NDS.Warehouse(
-	Warehouse_ID int IDENTITY(1,1)  primary key,
-    Warehouse_Na int not NULL,
-    Warehouse_Name varchar(100) not NULL,
-    Warehouse_cost float not NULL,
-	Location_ID int  NULL,
-    Location_Na int not NULL);
-    
-    
-    
-    
-
-
- 
-
-	ALTER TABLE NDS.Warehouse
-	ADD CONSTRAINT FK_warehouse
-	FOREIGN KEY (Location_ID) REFERENCES NDS.Location_Warehouse(Location_ID);
-
- 
-     ALTER TABLE NDS.Customer
-	ADD CONSTRAINT FK_Customers
-	FOREIGN KEY (Location_ID) REFERENCES NDS.Location_Customer(Location_ID);
-    
-	ALTER TABLE NDS.Product
-	ADD CONSTRAINT FK_Product
-	FOREIGN KEY (Warehouse_ID) REFERENCES NDS.Warehouse(Warehouse_ID);
-
- 
-
-	ALTER TABLE NDS.Record
-	ADD CONSTRAINT FK_record_product
-	FOREIGN KEY (Product_ID) REFERENCES NDS.Product(Product_ID);
-
- 
-
-	ALTER TABLE NDS.Record
-	ADD CONSTRAINT FK_record_Customer
-	FOREIGN KEY (Customer_ID) REFERENCES NDS.Customer(Customer_ID);
-
- 
-
-	ALTER TABLE NDS.Record
-	ADD CONSTRAINT FK_record_Date_Order
-	FOREIGN KEY (Date_Order) REFERENCES NDS.Datetime(TheDate);
-
- 
-
-	ALTER TABLE NDS.Record
-	ADD CONSTRAINT FK_record_Date_due
-	FOREIGN KEY (Date_due) REFERENCES NDS.Datetime(TheDate);
-
- 
-
-	ALTER TABLE NDS.Record
-	ADD CONSTRAINT FK_record_Date_Ship
-	FOREIGN KEY (Date_Ship) REFERENCES NDS.Datetime(TheDate);
- 
- 
- 
- 
- 
- 
- --Schema SCHEMA--
---Schema SCHEMA--
---Schema SCHEMA--
- 
- 
- 
- 
- 
- 
- 
- 
-  
-
-CREATE TABLE IF NOT EXISTS MODEL.DIMDATE (
-    TheDate Date not null primary key,
-    TheDay  int not null,
-    TheDayName  varchar(20) not null,
-    TheWeek  int not null ,
-    TheISOWeek int not null,
-    TheDayOfWeek  int not null,
-    TheMonth        int not null,
-    TheMonthName    varchar(20) not null,
-    TheQuarter      int not null,
-    TheYear         int not null,
-    TheFirstOfMonth date not null,
-    TheLastOfYear   date not null,
-    TheDayOfYear   int not null);
-
- 
-
-/****** Object: create Table Stagging.DIMCUSTOMER    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS MODEL.DIMCUSTOMER(   
-	Customer_ID int NULL primary key,
-    name varchar(20) NOT NULL,
-    username varchar(100) NOT NULL,
-    sex varchar(1) NOT NULL,
-    mail varchar(100) NOT NULL,
-    birthdate Datetime NULL,
-    Phone varchar(15) not NUll,
-	Location_ID int NOT NULL);
-
-
-/****** Object: create Table Stagging.DIMLOCATION    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS MODEL.DIMLOCATION_CUSTOMER(
-	Location_ID int NULL primary key,
-    Address varchar(100) NOT NULL,
-    Lat float NOT NULL,
-    Long float NOT NULL,
-    Post_Code int NOT NULL,
-    City varchar(20) NOT NULL,
-    Country_code varchar(2) NOT NULL,
-    Country_name varchar(20) NOT NULL,
-    States varchar(30) NOT NULL);
-
-/****** Object: create Table Stagging.DIMLOCATION    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS MODEL.DIMLOCATION_WAREHOUSE(
-	Location_ID int NULL primary key,
-    Address varchar(100) NOT NULL,
-    Lat float NOT NULL,
-    Long float NOT NULL,
-    Post_Code int NOT NULL,
-    City varchar(20) NOT NULL,
-    Country_code varchar(2) NOT NULL,
-    Country_name varchar(20) NOT NULL,
-    States varchar(30) NOT NULL);
-
-/****** Object:  Create Table Stagging.DIMPRODUCT    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS MODEL.DIMPRODUCT(
-	Product_ID int NULL primary key,
-    Product_Name varchar(50) NOT NULL,
-    Product_SubCategory varchar(50) NULL,
-    Product_Color varchar(20) NOt NULL,
-    Standard_Cost float NOT NULL,
-    General_Price float NOT NULL,
-    Product_Number int NOT NULL,
-    Sale_DateStart Datetime NULL,
-    Sale_DateEnd Datetime NULL,
-    Import_Flag Boolean NULL,
-	Warehouse_ID int NOT NULL);
-
- 
-
-/****** Object:  Create Table Stagging.FACTRECORD    Script Date: 8/11/2021 5:55:21 PM ******/
-
- 
-
-CREATE TABLE IF NOT EXISTS MODEL.FACTRECORD(
-	Order_ID int NULL primary key,
-	Product_ID int not NULL,
-    Customer_ID int not NULL,
-    Product_Values float not NULL,
-    General_Price float not NULL,
-    Tax float not NULL,
-    Total_Cost float not NULL,
-    Date_Order date not NULL,
-    Date_Ship date not NULL,
-    Date_due date not NULL,
-    Ship_Distance float not NULL,
-    Ship_Cost float not NULL);
-
- 
-
-CREATE TABLE IF NOT EXISTS MODEL.DIMWAREHOUSE(
-	Warehouse_ID int  NULL primary key,
-    Warehouse_Name varchar(100) not NULL,
-    Warehouse_cost float not NULL,
-	Location_ID int not NULL);
-    
-   
-
-	ALTER TABLE MODEL.DIMWAREHOUSE
-	ADD CONSTRAINT FK_warehouse
-	FOREIGN KEY (Location_ID) REFERENCES MODEL.DIMLOCATION_WAREHOUSE(Location_ID);
-
- 
-     ALTER TABLE MODEL.DIMCUSTOMER
-	ADD CONSTRAINT FK_Customers
-	FOREIGN KEY (Location_ID) REFERENCES MODEL.DIMLOCATION_CUSTOMER(Location_ID);
-    
-	ALTER TABLE MODEL.DIMPRODUCT
-	ADD CONSTRAINT FK_Product
-	FOREIGN KEY (Warehouse_ID) REFERENCES MODEL.DIMWAREHOUSE(Warehouse_ID);
-
- 
-
-	ALTER TABLE MODEL.FACTRECORD
-	ADD CONSTRAINT FK_record_product
-	FOREIGN KEY (Product_ID) REFERENCES MODEL.DIMPRODUCT(Product_ID);
-
- 
-
-	ALTER TABLE MODEL.FACTRECORD
-	ADD CONSTRAINT FK_record_Customer
-	FOREIGN KEY (Customer_ID) REFERENCES MODEL.DIMCUSTOMER(Customer_ID);
-
- 
-
-	ALTER TABLE MODEL.FACTRECORD
-	ADD CONSTRAINT FK_record_Date_Order
-	FOREIGN KEY (Date_Order) REFERENCES MODEL.DIMDATE(TheDate);
-
- 
-
-	ALTER TABLE MODEL.FACTRECORD
-	ADD CONSTRAINT FK_record_Date_due
-	FOREIGN KEY (Date_due) REFERENCES MODEL.DIMDATE(TheDate);
-
- 
-
-	ALTER TABLE MODEL.FACTRECORD
-	ADD CONSTRAINT FK_record_Date_Ship
-	FOREIGN KEY (Date_Ship) REFERENCES MODEL.DIMDATE(TheDate);
-    
---set up data to model to download--
-CREATE FILE FORMAT "PROJECT1"."MODEL".CSV_FILE
-TYPE = 'CSV' COMPRESSION = 'AUTO' FIELD_DELIMITER = ','
-RECORD_DELIMITER = '\n' SKIP_HEADER = 0 FIELD_OPTIONALLY_ENCLOSED_BY = 'NONE'
-TRIM_SPACE = FALSE ERROR_ON_COLUMN_COUNT_MISMATCH = TRUE ESCAPE = 'NONE'
-ESCAPE_UNENCLOSED_FIELD = '\134' DATE_FORMAT = 'AUTO' TIMESTAMP_FORMAT = 'AUTO'
-NULL_IF = ('\\N');
+	City varchar(50) NOT NULL,
+	Country_code varchar(2) NOT NULL,
+	Country_name varchar(50) NOT NULL,
+	States varchar(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS MODEL.DimWarehouse (
+	WarehouseKey int IDENTITY(1,1) PRIMARY KEY,
+	Warehouse_ID int NOT NULL,
+	Warehouse_Name varchar(100) NOT NULL,
+	Warehouse_Cost float NOT NULL,
+	Lat float NOT NULL,
+	Long float NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS MODEL.DimProduct (
+    ProductKey int IDENTITY(1,1) PRIMARY KEY,
+	Product_ID int NOT NULL,
+	Product_Name varchar(50) NOT NULL,
+	Product_Category varchar(50) NULL,
+	Product_Code int NOT NULL,
+	Weight float NOT NULL,
+    Currently int NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS MODEL.FactImport (
+    ImportKey int IDENTITY(1,1) PRIMARY KEY,
+    ImportDate Date NOT NULL,
+    DepartureLocationKey int NOT NULL,
+    ArrivalLocationKey int NOT NULL,
+    WarehouseKey int NOT NULL,
+    ProductKey int NOT NULL,
+    Quantity int NOT NULL,
+    TotalWeight float NOT NULL,
+    ShipDistance float NOT NULL,
+    ShipCost float NOT NULL,
+    FOREIGN KEY (ImportDate) REFERENCES Model.DimDate(Date),
+    FOREIGN KEY (DepartureLocationKey) REFERENCES Model.DimLocation(LocationKey),
+    FOREIGN KEY (ArrivalLocationKey) REFERENCES Model.DimLocation(LocationKey),
+    FOREIGN KEY (WarehouseKey) REFERENCES Model.DimWarehouse(WarehouseKey),
+    FOREIGN KEY (ProductKey) REFERENCES Model.DimProduct(ProductKey)
+);
+
+CREATE TABLE IF NOT EXISTS MODEL.FactExport (
+    ExportKey int IDENTITY(1,1) PRIMARY KEY,
+    ExportDate Date NOT NULL,
+    DepartureLocationKey int NOT NULL,
+    ArrivalLocationKey int NOT NULL,
+    WarehouseKey int NOT NULL,
+    ProductKey int NOT NULL,
+    ShipLate int NOT NULL,
+    Quantity int NOT NULL,
+    TotalWeight float NOT NULL,
+    ShipDistance float NOT NULL,
+    ShipCost float NOT NULL,
+    FOREIGN KEY (ExportDate) REFERENCES Model.DimDate(Date),
+    FOREIGN KEY (DepartureLocationKey) REFERENCES Model.DimLocation(LocationKey),
+    FOREIGN KEY (ArrivalLocationKey) REFERENCES Model.DimLocation(LocationKey),
+    FOREIGN KEY (WarehouseKey) REFERENCES Model.DimWarehouse(WarehouseKey),
+    FOREIGN KEY (ProductKey) REFERENCES Model.DimProduct(ProductKey)
+);
