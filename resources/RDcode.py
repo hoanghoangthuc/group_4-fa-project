@@ -36,7 +36,6 @@ def CreateDataRaw():#create DataRaw
     
     df_W=df_w[col_W]
     df_c=df_C[col_C]
-    #df_R=df_R[columnsrecord]
     
     return df_l,df_s,df_W,df_c,df_P,df_sto,df_imp, df_R
     
@@ -56,7 +55,6 @@ def  Rawurl():
 
 #create warehouse
 def create_Warehouse(RECORD_COUNT,Lc):
-    time_stampe = datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
     Warehouse_ID=[]
     Warehouse_Name =[]
     Warehouse_cost = []
@@ -112,7 +110,7 @@ def create_record(Sto,startdate,enddate,Pr,Cu,Wh):
             Pro_in=i['Product']
             Cus_in=random.randint(0, len(Ra_Cus)-1)
             Wah_in=i['Warehouse']
-            Product_ID=Ra_Pro['Product_ID'][Pro_in]
+            Product_ID=Ra_Pro['NoID'][Pro_in]
             Customer_ID=Ra_Cus['Customer_ID'][Cus_in]
             Quantity=j
             # diền ship vào đay ship là tiền ship (lat,long của cus,,,, lat long của warehosue)
@@ -287,10 +285,7 @@ def generatePassword(i,k) :
 
 #create count ship code
 def shipping_cost(distance,weigth):
-    if float(distance) < 300:
-        cost = 0
-    elif float(distance) >= 300:
-        cost = (distance - 300)*0.00002*weigth
+    cost = distance*0.00002*weigth + 0.001*weigth
     return round(cost,3)
 
 #create distance

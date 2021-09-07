@@ -13,6 +13,11 @@ DECLARE @var sql_variant = N'E:\Project2-Topic4\group_4-fa-project1'
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'ProjectPath', @sensitive=False,
 @description=N'Path to Project folder', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String';
 GO
+-- Change sql_variant to your Snowflake DSN Name
+DECLARE @var sql_variant = N'Snowflake'
+EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'SnowflakeDSNName', @sensitive=False,
+@description=N'Snowflake DSN Name', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
+GO
 -- Change sql_variant to your Snowflake account
 DECLARE @var sql_variant = N'fk36375.ap-southeast-1.snowflakecomputing.com'
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'SnowflakeAccount', @sensitive=False,
@@ -28,7 +33,7 @@ DECLARE @var sql_variant = N'quanpa'
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'SnowflakeUser', @sensitive=False,
 @description=N'Snowflake User', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
 GO
--- Change sql_variant to your Server Name
+-- Change sql_variant to your SQL Server Name
 DECLARE @var sql_variant = @@servername
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'Servername', @sensitive=False,
 @description=N'SQL Servername', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
@@ -42,6 +47,8 @@ GO
 EXEC [SSISDB].[catalog].[set_object_parameter_value] @object_type=20, @parameter_name=N'ErrorEmail', @object_name=N'Project2', @folder_name=N'Project2', @project_name=N'Project2', @value_type=R, @parameter_value=N'ErrorEmail'
 GO
 EXEC [SSISDB].[catalog].[set_object_parameter_value] @object_type=20, @parameter_name=N'ProjectPath', @object_name=N'Project2', @folder_name=N'Project2', @project_name=N'Project2', @value_type=R, @parameter_value=N'ProjectPath'
+GO
+EXEC [SSISDB].[catalog].[set_object_parameter_value] @object_type=20, @parameter_name=N'SnowflakeDSNName', @object_name=N'Project2', @folder_name=N'Project2', @project_name=N'Project2', @value_type=R, @parameter_value=N'SnowflakeDSNName'
 GO
 EXEC [SSISDB].[catalog].[set_object_parameter_value] @object_type=20, @parameter_name=N'SnowflakeAccount', @object_name=N'Project2', @folder_name=N'Project2', @project_name=N'Project2', @value_type=R, @parameter_value=N'SnowflakeAccount'
 GO

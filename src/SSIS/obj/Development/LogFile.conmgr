@@ -8,6 +8,6 @@
   <DTS:ObjectData>
     <DTS:ConnectionManager
       DTS:FileUsageType="1"
-      DTS:ConnectionString="E:\Project 2 - Topic 4\group_4-fa-project1\Log\SSISLog\SSIS210906.csv" />
+      DTS:ConnectionString="E:\Project 2 - Topic 4\group_4-fa-project1\Log\SSISLog\SSIS210907.csv" />
   </DTS:ObjectData>
 </DTS:ConnectionManager>

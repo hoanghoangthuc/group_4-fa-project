@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package3"
   DTS:PackageType="5"
-  DTS:VersionBuild="15"
-  DTS:VersionGUID="{4AFE9160-D5D7-4F1B-B55F-0F06EC9568EC}">
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{96475AA5-45C3-4831-8E8A-4301C52F37AE}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -22,14 +22,14 @@
       DTS:DTSID="{245D6110-5EB9-4ED9-8142-CA73170A8EFD}"
       DTS:ObjectName="Snowflake.quanpa">
       <DTS:PropertyExpression
-        DTS:Name="ConnectionString">"Dsn=Snowflake;uid="+@[$Project::SnowflakeUser]+";pwd="+@[$Project::SnowflakePassword]</DTS:PropertyExpression>
+        DTS:Name="ConnectionString">"Dsn="+ @[$Project::SnowflakeDSNName] +";uid="+@[$Project::SnowflakeUser]+";pwd="+@[$Project::SnowflakePassword]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectionString="uid=quanpa;Dsn=Snowflake;">
           <DTS:Password
             DTS:Name="pwd"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA6xDl6aL4+UOGDVUDx9ilNQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAC8lVWIn5Bf934dtMcv/5qoQSlB5ZPr9uwP1cPKaEQ3aAAAAAAOgAAAAAIAACAAAADueU8UXKFSsQBalBZdoRY75tKOe8NpWPBuEvZ+pG6OoyAAAACKQWS+uDvRcnuFbhR6/CKDYV04rhrJJ/P2Sr/K5wIMWkAAAABy8dGzqDC5WT2jeU2wt/B3zrupRmWkycXGWT0LdAJCb1u9O+RKP91zLb/Oh9Y/aKGSjnvOFNmklC1Ca1YvG07M</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA6xDl6aL4+UOGDVUDx9ilNQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADj86otlZJYZkfDlY6gyWeSo1yPaST5jQBiIC9e3aaJEQAAAAAOgAAAAAIAACAAAADkTqXttO8TNTRn0AErmm27LEIjbhgHCVY3FeOgDzDADSAAAAAVxGA2IacvV84xJtdo4jd1MP7lNicBk8nx356CzxAEh0AAAAAsw1QEkA9k8716XGNjCNFMXvg4V4fX+ZY7+UpfDcN6lS37m3b0ACoTVZIYb+FCCtH3vWrae3hWfpCsDQfjW7DR</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -4956,6 +4956,18 @@
       </GraphLayout>
     </LayoutInfo>
   </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="173,42"
+          Id="Package.EventHandlers[OnError]\Send Mail On Error"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
   <TaskHost
     design-time-name="Package\UploadCustomerData">
     <LayoutInfo>
@@ -5708,17 +5720,5 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
-  <DtsEventHandler
-    design-time-name="Package.EventHandlers[OnError]">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
-        <NodeLayout
-          Size="173,42"
-          Id="Package.EventHandlers[OnError]\Send Mail On Error"
-          TopLeft="60,60" />
-      </GraphLayout>
-    </LayoutInfo>
-  </DtsEventHandler>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>

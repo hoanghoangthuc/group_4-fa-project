@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package2"
   DTS:PackageType="5"
-  DTS:VersionBuild="21"
-  DTS:VersionGUID="{6585853D-A148-4502-B25D-8D4E191E53F9}">
+  DTS:VersionBuild="25"
+  DTS:VersionGUID="{657B2E93-94EB-40CC-AF95-A02267E7FC90}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:LogProviders>
@@ -153,7 +153,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
-              SQLTask:SqlStatementSource="MERGE [Storing].[Customer] as t&#xA;USING &#xA;&#x9;(SELECT a.[Customer_ID],a.[name],a.[username],a.[sex],a.[mail],a.[birthdate],b.[Location_ID],a.[Phone],a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;&#x9;FROM [Staging].[Customer] a&#xA;&#x9;JOIN [Storing].[Location] b&#xA;&#x9;ON a.Location_ID = b.[Source_Location_ID]) as s&#xA;&#x9;ON t.[uuid] = s.[uuid]&#xA;&#x9;WHEN MATCHED AND t.[Current] = 1&#xA;&#x9;&#x9;THEN&#xA;&#x9;&#x9;&#x9;UPDATE SET t.[Current] = 0, t.[LastEditedBy] = s.[LastEditedBy], t.[LastEditedWhen] = s.[LastEditedWhen];&#xA;&#xA;INSERT [Storing].[Customer] ([Source_Customer_ID],[name],[username],[sex],[mail],[birthdate],[Location_ID],[Phone],[Current],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;(SELECT a.[Customer_ID],a.[name],a.[username],a.[sex],a.[mail],a.[birthdate],b.[Location_ID],a.[Phone],1,a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;&#x9;FROM [Staging].[Customer] a&#xA;&#x9;JOIN [Storing].[Location] b&#xA;&#x9;ON a.Location_ID = b.[Source_Location_ID]);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStatementSource="MERGE [Storing].[Product] as t&#xA;USING &#xA;&#x9;[Staging].[Product] as s&#xA;&#x9;ON t.[uuid] = s.[uuid]&#xA;&#x9;WHEN MATCHED AND t.[Current] = 1&#xA;&#x9;&#x9;THEN&#xA;&#x9;&#x9;&#x9;UPDATE SET t.[Current] = 0, t.[LastEditedBy] = s.[LastEditedBy], t.[LastEditedWhen] = s.[LastEditedWhen];&#xA;&#xA;INSERT [Storing].[Product]( [Source_Product_ID],[Product_Code],[Product_Name],[Product_Category],[Weight],[Current],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;(SELECT [Product_ID],[Product_Code],[Product_Name],[Product_Category],[Weight],1,[uuid],[LastEditedBy],[LastEditedWhen] FROM [Staging].[Product] );" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
       </DTS:Executables>
@@ -179,7 +179,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="SQL LoadCustomer"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="2">
           <DTS:Variables />
           <DTS:LoggingOptions
             DTS:FilterKind="0" />
@@ -198,7 +198,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="SQL LoadSupplier"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="1">
+          DTS:ThreadHint="0">
           <DTS:Variables />
           <DTS:LoggingOptions
             DTS:FilterKind="0" />
@@ -217,7 +217,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="SQL LoadWarehouse"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="2">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:LoggingOptions
             DTS:FilterKind="0" />
@@ -257,7 +257,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
-              SQLTask:SqlStatementSource="INSERT INTO [Storing].[Export]([Source_Order_ID],[Product_ID],[Customer_ID],[Quantity],[Date_Order],[Date_Ship],&#xA;       [Date_due],[Ship_Distance],[Ship_Cost],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;SELECT a.[Order_ID],b.[Product_ID],c.[Customer_ID],a.[Quantity],a.[Date_Order],a.[Date_Ship],&#xA;  a.[Date_due],a.[Ship_Distance],a.[Ship_Cost],a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;  FROM [Staging].[Export] a&#xA;  JOIN [Storing].[Product] b&#xA;  ON a.[Product_ID] = b.[Product_Code]&#xA;  JOIN [Storing].[Customer] c&#xA;  ON a.[Customer_ID] = c.[Source_Customer_ID]&#xA;  WHERE b.[Current] = 1 AND c.[Current] = 1" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStatementSource="INSERT INTO [Storing].[Export]([Source_Order_ID],[Product_ID],[Customer_ID],[Quantity],[Date_Order],[Date_Ship],&#xA;       [Date_due],[Ship_Distance],[Ship_Cost],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;SELECT a.[Order_ID],b.[Product_ID],c.[Customer_ID],a.[Quantity],a.[Date_Order],a.[Date_Ship],&#xA;  a.[Date_due],a.[Ship_Distance],a.[Ship_Cost],a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;  FROM [Staging].[Export] a&#xA;  JOIN [Storing].[Product] b&#xA;  ON a.[Product_ID] = b.[Source_Product_ID]&#xA;  JOIN [Storing].[Customer] c&#xA;  ON a.[Customer_ID] = c.[Source_Customer_ID]&#xA;  WHERE b.[Current] = 1 AND c.[Current] = 1" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable

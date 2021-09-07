@@ -2,6 +2,30 @@
 <DataProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/sqlserver/2008/DataDebugger/">
   <ProfileVersion>1.0</ProfileVersion>
   <DataSources>
+    <DtsDataSource ID="{334F3DCF-12B2-4FC4-B7E8-132D55950198}" Name="ErrorCustomerData">
+      <DtsConnectionManagerID>ErrorCustomerData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{22F91828-9196-4A0B-A5C6-AE8BEFC67FB2}" Name="ErrorExportData">
+      <DtsConnectionManagerID>ErrorExportData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{FC2B7294-8941-4D20-B04A-AA0494638D07}" Name="ErrorImportData">
+      <DtsConnectionManagerID>ErrorImportData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{0F113D92-7DEA-4918-9234-85445EE4551F}" Name="ErrorLocationData">
+      <DtsConnectionManagerID>ErrorLocationData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{907EDEDE-FE65-4505-8330-8DAB5EC1C1D2}" Name="ErrorProductData">
+      <DtsConnectionManagerID>ErrorProductData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{0EF70554-7FF6-415E-8559-7D8D21229D86}" Name="ErrorStorageData">
+      <DtsConnectionManagerID>ErrorStorageData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{2F5D1D53-4B28-453D-BF3F-E5AE35E3A119}" Name="ErrorSupplierData">
+      <DtsConnectionManagerID>ErrorSupplierData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{F9788ABF-817B-4875-879D-A6EF9CBD0906}" Name="ErrorWarehouseData">
+      <DtsConnectionManagerID>ErrorWarehouseData</DtsConnectionManagerID>
+    </DtsDataSource>
     <DtsDataSource ID="{1E45C4D4-380D-45D5-9306-B5ED56CD4F57}" Name="ExportDataProfile">
       <DtsConnectionManagerID>ExportDataProfile</DtsConnectionManagerID>
     </DtsDataSource>
