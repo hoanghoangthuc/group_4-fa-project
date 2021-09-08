@@ -1,0 +1,506 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/31/2021 8:41:48 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-MUE9P6C"
+  DTS:CreatorName="DESKTOP-MUE9P6C\PC"
+  DTS:DTSID="{08A4A364-E9AE-4588-A822-A1E74A415374}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package2"
+  DTS:PackageType="5"
+  DTS:VersionBuild="25"
+  DTS:VersionGUID="{657B2E93-94EB-40CC-AF95-A02267E7FC90}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="SQL Server"
+      DTS:CreationName="Microsoft.LogProviderSQLServer"
+      DTS:Description="Writes log entries for events to a SQL Server database"
+      DTS:DTSID="{88A5C9B6-FDA6-4A33-A000-A0DA3F93AF96}"
+      DTS:ObjectName="SSIS log provider for SQL Server">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+    <DTS:LogProvider
+      DTS:ConfigString="LogFile"
+      DTS:CreationName="Microsoft.LogProviderTextFile"
+      DTS:Description="Writes log entries for events to a CSV file"
+      DTS:DTSID="{ED42A99A-AE23-447D-9AA8-EFF744C4F0AE}"
+      DTS:ObjectName="SSIS log provider for Text files">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables />
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">3,7,OnError,13,OnPostExecute,12,OnPreExecute</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPostExecute"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPreExecute"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{88A5C9B6-FDA6-4A33-A000-A0DA3F93AF96}" />
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{ED42A99A-AE23-447D-9AA8-EFF744C4F0AE}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Data Into Independent Table"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{C7D1BB9B-0252-4AFD-8D8B-6A15B3CBA236}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Data Into Independent Table">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load Data Into Independent Table\SQL LoadLocation"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{BAF04A3A-F751-417C-A47D-16B536A575BC}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL LoadLocation"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+              SQLTask:SqlStatementSource="MERGE [Storing].[Location] as t&#xA;USING [Staging].[Location] as s&#xA;ON t.[uuid] = s.[uuid]&#xA;WHEN MATCHED&#xA;&#x9;THEN&#xA;&#x9;&#x9;UPDATE SET t.[Address] = s.[Address] , t.[City] = s.[City] , t.[Country_code] = s.[Country_code] , t.[Country_name] = s.[Country_name],&#xA;&#x9;&#x9;t.[States] = s.[States] , t.[LastEditedBy] = s.[LastEditedBy], t.[LastEditedWhen] = s.[LastEditedWhen]&#xA;WHEN NOT MATCHED&#xA;&#x9;THEN&#xA;&#x9;&#x9;INSERT ([Source_Location_ID],[Address],[Lat],[Long],[City],[Country_code],[Country_name],[States],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;&#x9;&#x9;VALUES (s.[Location_ID],s.[Address],s.[Lat],s.[Long],s.[City],s.[Country_code],s.[Country_name],s.[States],s.[uuid],s.[LastEditedBy],s.[LastEditedWhen]);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Data Into Independent Table\SQL LoadProduct"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{3CDCF34E-5590-431F-92C3-EA4DD14FD40D}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL LoadProduct"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+              SQLTask:SqlStatementSource="MERGE [Storing].[Product] as t&#xA;USING &#xA;&#x9;[Staging].[Product] as s&#xA;&#x9;ON t.[uuid] = s.[uuid]&#xA;&#x9;WHEN MATCHED AND t.[Current] = 1&#xA;&#x9;&#x9;THEN&#xA;&#x9;&#x9;&#x9;UPDATE SET t.[Current] = 0, t.[LastEditedBy] = s.[LastEditedBy], t.[LastEditedWhen] = s.[LastEditedWhen];&#xA;&#xA;INSERT [Storing].[Product]( [Source_Product_ID],[Product_Code],[Product_Name],[Product_Category],[Weight],[Current],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;(SELECT [Product_ID],[Product_Code],[Product_Name],[Product_Category],[Weight],1,[uuid],[LastEditedBy],[LastEditedWhen] FROM [Staging].[Product] );" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Data Into lv1 Dependent Table"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{AEB5BC74-3EFB-444D-910D-FEDE347118F4}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Data Into lv1 Dependent Table">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load Data Into lv1 Dependent Table\SQL LoadCustomer"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{5C3FCE0E-35A5-4D66-96FC-1D240899AB58}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL LoadCustomer"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+              SQLTask:SqlStatementSource="MERGE [Storing].[Customer] as t&#xA;USING &#xA;&#x9;(SELECT a.[Customer_ID],a.[name],a.[username],a.[sex],a.[mail],a.[birthdate],b.[Location_ID],a.[Phone],a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;&#x9;FROM [Staging].[Customer] a&#xA;&#x9;JOIN [Storing].[Location] b&#xA;&#x9;ON a.Location_ID = b.[Source_Location_ID]) as s&#xA;&#x9;ON t.[uuid] = s.[uuid]&#xA;&#x9;WHEN MATCHED AND t.[Current] = 1&#xA;&#x9;&#x9;THEN&#xA;&#x9;&#x9;&#x9;UPDATE SET t.[Current] = 0, t.[LastEditedBy] = s.[LastEditedBy], t.[LastEditedWhen] = s.[LastEditedWhen];&#xA;&#xA;INSERT [Storing].[Customer] ([Source_Customer_ID],[name],[username],[sex],[mail],[birthdate],[Location_ID],[Phone],[Current],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;(SELECT a.[Customer_ID],a.[name],a.[username],a.[sex],a.[mail],a.[birthdate],b.[Location_ID],a.[Phone],1,a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;&#x9;FROM [Staging].[Customer] a&#xA;&#x9;JOIN [Storing].[Location] b&#xA;&#x9;ON a.Location_ID = b.[Source_Location_ID]);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Data Into lv1 Dependent Table\SQL LoadSupplier"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{6DBB892F-345A-4CE5-AB0D-98C47283940F}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL LoadSupplier"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+              SQLTask:SqlStatementSource="MERGE [Storing].[Supplier] as t&#xA;&#x9;USING &#xA;&#x9;&#x9;(SELECT a.[Supplier_ID],a.[Supplier_Name],b.[Location_ID],a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;&#x9;&#x9;&#x9;FROM [Staging].[Supplier] a&#xA;&#x9;&#x9;&#x9;JOIN [Storing].[Location] b&#xA;&#x9;&#x9;&#x9;ON a.[Location_ID] = b.[Source_Location_ID]) as s&#xA;&#x9;ON t.[uuid] = s.[uuid]&#xA;&#x9;WHEN MATCHED&#xA;&#x9;&#x9;THEN&#xA;&#x9;&#x9;&#x9;UPDATE SET t.[Supplier_Name] = s.[Supplier_Name], t.[Location_ID] = s.[Location_ID],&#xA;&#x9;&#x9;&#x9;t.[LastEditedBy] = s.[LastEditedBy], t.[LastEditedWhen] = s.[LastEditedWhen]&#xA;&#x9;WHEN NOT MATCHED&#xA;&#x9;&#x9;THEN&#xA;&#x9;&#x9;&#x9;INSERT ([Source_Supplier_ID],[Supplier_Name],[Location_ID],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;&#x9;&#x9;&#x9;VALUES (s.[Supplier_ID],s.[Supplier_Name],s.[Location_ID],s.[uuid],s.[LastEditedBy],s.[LastEditedWhen]);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Data Into lv1 Dependent Table\SQL LoadWarehouse"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{9B4BC323-B160-4CFB-81CF-85217FE833E0}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL LoadWarehouse"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+              SQLTask:SqlStatementSource="MERGE [Storing].[Warehouse] as t&#xA;&#x9;USING &#xA;&#x9;&#x9;(SELECT a.[Warehouse_ID],a.[Warehouse_Name],a.[Warehouse_cost],b.[Location_ID],a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;&#x9;&#x9;&#x9;FROM [Staging].[Warehouse] a&#xA;&#x9;&#x9;&#x9;JOIN [Storing].[Location] b&#xA;&#x9;&#x9;&#x9;ON a.[Location_ID] = b.[Source_Location_ID]) as s&#xA;&#x9;ON t.[uuid] = s.[uuid]&#xA;&#x9;WHEN MATCHED&#xA;&#x9;&#x9;THEN&#xA;&#x9;&#x9;&#x9;UPDATE SET t.[Warehouse_Name] = s.[Warehouse_Name], t.[Warehouse_cost] = s.[Warehouse_cost], t.[Location_ID] = s.[Location_ID],&#xA;&#x9;&#x9;&#x9;t.[LastEditedBy] = s.[LastEditedBy], t.[LastEditedWhen] = s.[LastEditedWhen]&#xA;&#x9;WHEN NOT MATCHED&#xA;&#x9;&#x9;THEN&#xA;&#x9;&#x9;&#x9;INSERT ([Source_Warehouse_ID],[Warehouse_Name],[Warehouse_cost],[Location_ID],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;&#x9;&#x9;&#x9;VALUES (s.[Warehouse_ID],s.[Warehouse_Name],s.[Warehouse_cost],s.[Location_ID],s.[uuid],s.[LastEditedBy],s.[LastEditedWhen]);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Data Into lv2 Dependent Table"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{55FEABFA-8E9C-4830-B7F8-6714A0710288}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Data Into lv2 Dependent Table">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load Data Into lv2 Dependent Table\SQL LoadExport"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{DC4AA992-B036-4E80-8A5F-9EA46655D5E5}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL LoadExport"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+              SQLTask:SqlStatementSource="INSERT INTO [Storing].[Export]([Source_Order_ID],[Product_ID],[Customer_ID],[Quantity],[Date_Order],[Date_Ship],&#xA;       [Date_due],[Ship_Distance],[Ship_Cost],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;SELECT a.[Order_ID],b.[Product_ID],c.[Customer_ID],a.[Quantity],a.[Date_Order],a.[Date_Ship],&#xA;  a.[Date_due],a.[Ship_Distance],a.[Ship_Cost],a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;  FROM [Staging].[Export] a&#xA;  JOIN [Storing].[Product] b&#xA;  ON a.[Product_ID] = b.[Source_Product_ID]&#xA;  JOIN [Storing].[Customer] c&#xA;  ON a.[Customer_ID] = c.[Source_Customer_ID]&#xA;  WHERE b.[Current] = 1 AND c.[Current] = 1" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Data Into lv2 Dependent Table\SQL LoadImport"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{E547EC6D-B423-4888-8CE8-E67106636114}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL LoadImport"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+              SQLTask:SqlStatementSource="INSERT INTO [Storing].[Import]([Source_Import_ID],[Product_ID],[Warehouse_ID],[Supplier_ID],&#xA;&#x9;[Quantity],[Ship_Distance],[Ship_Cost],[Import_Date],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;SELECT a.[Import_ID],b.[Product_ID],c.[Warehouse_ID],d.[Supplier_ID],a.[Quantity],a.[Ship_Distance],a.[Ship_Cost],&#xA;&#x9;a.[Import_Date],a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;  FROM [Staging].[Import] a&#xA;  JOIN [Storing].[Product] b&#xA;  ON a.Product_ID = b.[Source_Product_ID]&#xA;  JOIN [Storing].[Warehouse] c&#xA;  ON a.Warehouse_ID = c.[Source_Warehouse_ID]&#xA;  JOIN [Storing].[Supplier] d&#xA;  ON a.Supplier_ID = d.[Source_Supplier_ID]&#xA;  WHERE b.[Current] = 1" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Data Into lv2 Dependent Table\SQL LoadStorage"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{E818E3F3-3C10-4E91-9088-7D51A5248147}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL LoadStorage"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+              SQLTask:SqlStatementSource="MERGE [Storing].[Storage] as t&#xA;&#x9;USING &#xA;&#x9;&#x9;(SELECT a.[StorageID],b.[Product_ID],c.[Warehouse_ID],a.[Capacity],a.[Quantity],a.[uuid],a.[LastEditedBy],a.[LastEditedWhen]&#xA;&#x9;&#x9;&#x9;FROM [Project2].[Staging].[Storage] a&#xA;&#x9;&#x9;&#x9;JOIN [Storing].[Product] b&#xA;&#x9;&#x9;&#x9;ON a.[Product_ID] = b.[Source_Product_ID]&#xA;&#x9;&#x9;&#x9;JOIN [Storing].[Warehouse] c&#xA;&#x9;&#x9;&#x9;ON a.[Warehouse_ID] = c.[Source_Warehouse_ID]&#xA;&#x9;&#x9;&#x9;WHERE b.[Current] = 1) as s&#xA;&#x9;ON t.[uuid] = s.[uuid]&#xA;&#x9;WHEN MATCHED&#xA;&#x9;&#x9;THEN&#xA;&#x9;&#x9;&#x9;UPDATE SET t.[Warehouse_ID] = s.[Warehouse_ID], t.[Capacity] = s.[Capacity], t.[Quantity] = s.[Quantity],&#xA;&#x9;&#x9;&#x9;t.[LastEditedBy] = s.[LastEditedBy], t.[LastEditedWhen] = s.[LastEditedWhen]&#xA;&#x9;WHEN NOT MATCHED&#xA;&#x9;&#x9;THEN&#xA;&#x9;&#x9;&#x9;INSERT ([Source_StorageID],[Product_ID],[Warehouse_ID],[Capacity],[Quantity],[uuid],[LastEditedBy],[LastEditedWhen])&#xA;&#x9;&#x9;&#x9;VALUES (s.[StorageID],s.[Product_ID],s.[Warehouse_ID],s.[Capacity],s.[Quantity],s.[uuid],s.[LastEditedBy],s.[LastEditedWhen]);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{505ACFBA-F76F-42B2-B698-E76BB4173041}"
+      DTS:From="Package\Load Data Into Independent Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Data Into lv1 Dependent Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{A98381EE-E36D-473A-BD66-304D70BE0CF8}"
+      DTS:From="Package\Load Data Into lv1 Dependent Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Load Data Into lv2 Dependent Table" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{234333EA-C56F-437C-ACF2-48AE3CD1B315}"
+      DTS:EventID="1506237240"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{65C595AF-554D-4AAF-8224-242AAFA25306}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\Send Mail On Error"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1bb9d09d-2aee-4e9d-9e7b-c872b085547d}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Send Mail On Error"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+              SQLTask:SqlStatementSource="Declare @text nvarchar(max)&#xA;Set @text = 'The Package '+ ? + '  has Failed with the following error ' + ? + 'Please check log file for more information.'&#xA;&#xA;EXEC msdb.dbo.sp_send_dbmail&#xA;     @profile_name = 'Notifications',&#xA;     @recipients = ?,&#xA;     @body = @text,&#xA;     @subject = 'SSIS Package Failed';&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="$Project::ErrorEmail"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Load Data Into Independent Table\SQL LoadLocation"
+          TopLeft="203,24" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Load Data Into Independent Table\SQL LoadProduct"
+          TopLeft="19,23" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="390,89"
+          Size="390,132"
+          Id="Package\Load Data Into Independent Table"
+          TopLeft="313.5,64" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Load Data Into lv1 Dependent Table\SQL LoadCustomer"
+          TopLeft="21,24" />
+        <NodeLayout
+          Size="169,42"
+          Id="Package\Load Data Into lv1 Dependent Table\SQL LoadSupplier"
+          TopLeft="211,22.5" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Load Data Into lv1 Dependent Table\SQL LoadWarehouse"
+          TopLeft="393,23" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="593,101"
+          Size="593,144"
+          Id="Package\Load Data Into lv1 Dependent Table"
+          TopLeft="210.5,239" />
+        <NodeLayout
+          Size="160,42"
+          Id="Package\Load Data Into lv2 Dependent Table\SQL LoadExport"
+          TopLeft="408,30" />
+        <NodeLayout
+          Size="160,42"
+          Id="Package\Load Data Into lv2 Dependent Table\SQL LoadImport"
+          TopLeft="218,32" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Load Data Into lv2 Dependent Table\SQL LoadStorage"
+          TopLeft="27,31" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="595,116"
+          Size="595,159"
+          Id="Package\Load Data Into lv2 Dependent Table"
+          TopLeft="209,421" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="507.75,196">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43"
+              Start="0,0"
+              End="0,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="506.75,383">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="173,42"
+          Id="Package.EventHandlers[OnError]\Send Mail On Error"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

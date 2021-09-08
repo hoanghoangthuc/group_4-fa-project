@@ -1,14 +1,34 @@
 <?xml version="1.0"?>
 <BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectInfo>
-    <Name>Integration Services Project2</Name>
-    <LastWriteTime>2021-08-16T08:17:57.0063467Z</LastWriteTime>
+    <Name>Project2</Name>
+    <LastWriteTime>2021-09-07T09:35:17.6845406Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
-      <Name>group_4 (1).dtsx</Name>
-      <LastWriteTime>2021-08-19T02:11:34.1378416Z</LastWriteTime>
+      <Name>Upload.dtsx</Name>
+      <LastWriteTime>2021-09-06T08:29:26.5400959Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>IngestStage.dtsx</Name>
+      <LastWriteTime>2021-09-07T09:34:51.0368385Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>StoreSQLServer.dtsx</Name>
+      <LastWriteTime>2021-09-07T09:11:20.0737924Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>UploadSnowflake.dtsx</Name>
+      <LastWriteTime>2021-09-07T09:23:53.4223511Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>Unload.dtsx</Name>
+      <LastWriteTime>2021-09-08T00:10:55.8406044Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

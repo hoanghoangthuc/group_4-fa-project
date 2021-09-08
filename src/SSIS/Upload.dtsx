@@ -1,0 +1,404 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/31/2021 8:31:14 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-MUE9P6C"
+  DTS:CreatorName="DESKTOP-MUE9P6C\PC"
+  DTS:DTSID="{F4487423-1986-49BC-A9C1-B1AD34F1DBE6}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="29"
+  DTS:VersionGUID="{28B8304A-ADCE-4495-8F4E-11A8EEEBF01C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="SQL Server"
+      DTS:CreationName="Microsoft.LogProviderSQLServer"
+      DTS:Description="Writes log entries for events to a SQL Server database"
+      DTS:DTSID="{F1E85088-261E-445B-A43D-9CDDF15D351F}"
+      DTS:ObjectName="SSIS log provider for SQL Server">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+    <DTS:LogProvider
+      DTS:ConfigString="LogFile"
+      DTS:CreationName="Microsoft.LogProviderTextFile"
+      DTS:Description="Writes log entries for events to a CSV file"
+      DTS:DTSID="{AAE2821A-8363-48DA-B643-11B3F3F305E8}"
+      DTS:ObjectName="SSIS log provider for Text files">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables />
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">3,7,OnError,13,OnPostExecute,12,OnPreExecute</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPostExecute"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPreExecute"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{F1E85088-261E-445B-A43D-9CDDF15D351F}" />
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{AAE2821A-8363-48DA-B643-11B3F3F305E8}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\IngestDataIntoStage"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{40B5F286-DEDC-45DC-A237-592D414B618B}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="IngestDataIntoStage"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>IngestStage.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LoadDataIntoSQLServer"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{11464644-4F78-41CD-BF59-9B4B6E79FB23}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadDataIntoSQLServer"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>StoreSQLServer.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL TruncateStage"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{EC93C07E-C551-445C-9582-73193ED2BF83}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL TruncateStage"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\SQL TruncateStage.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{8A085AF4-CCDE-4717-AB36-F1E0140C5E7B}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{CD082546-7CA3-4979-956E-192F7B3F5E38}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE Staging.Customer;&#xA;TRUNCATE TABLE Staging.Location;&#xA;TRUNCATE TABLE Staging.Warehouse;&#xA;TRUNCATE TABLE Staging.Import;&#xA;TRUNCATE TABLE Staging.Export;&#xA;TRUNCATE TABLE Staging.Supplier;&#xA;TRUNCATE TABLE Staging.Storage;&#xA;TRUNCATE TABLE Staging.Product;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\UploadToSnowflake"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{E25B8AF5-4C32-4869-9EEA-16E50CE7AC9F}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="UploadToSnowflake"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>UploadSnowflake.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{377CB399-604F-4D11-A46B-BEF1723BA6BF}"
+      DTS:From="Package\IngestDataIntoStage"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\LoadDataIntoSQLServer" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{9960933E-DFB0-48B6-8264-E4709D48EA1B}"
+      DTS:From="Package\LoadDataIntoSQLServer"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\UploadToSnowflake" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{1085ED0C-B45A-451D-94CA-DC885D7FB26F}"
+      DTS:From="Package\SQL TruncateStage"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\IngestDataIntoStage" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{B7081FE3-B06B-475E-B4F4-6000EBACE1A2}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{3A8FC994-9379-4CE8-B816-932472456A8C}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\Send Mail On Error"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{ac555e31-f389-4457-8786-a31880d1dba8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Send Mail On Error"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{58591293-F4BF-4D01-A322-63456070D807}"
+              SQLTask:SqlStatementSource="Declare @text nvarchar(max)&#xA;Set @text = 'The Package '+ ? + '  has Failed with the following error ' + ? + 'Please check log file for more information.'&#xA;&#xA;EXEC msdb.dbo.sp_send_dbmail&#xA;     @profile_name = 'Notifications',&#xA;     @recipients = ?,&#xA;     @body = @text,&#xA;     @subject = 'SSIS Package Failed';&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="$Project::ErrorEmail"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="179,43"
+          Id="Package\IngestDataIntoStage"
+          TopLeft="276,181" />
+        <NodeLayout
+          Size="199,42"
+          Id="Package\LoadDataIntoSQLServer"
+          TopLeft="266,253" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\SQL TruncateStage"
+          TopLeft="277,107" />
+        <NodeLayout
+          Size="178,42"
+          Id="Package\UploadToSnowflake"
+          TopLeft="278,327" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="365.5,224">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29"
+              Start="0,0"
+              End="0,21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="366.25,295">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="365.25,149">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="173,42"
+          Id="Package.EventHandlers[OnError]\Send Mail On Error"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="LogFile"
+  DTS:DTSID="{528CCF1F-39D2-478C-A00E-52CF83D90429}"
+  DTS:CreationName="FILE">
+  <DTS:PropertyExpression
+    DTS:Name="ConnectionString">@[$Project::ProjectPath]+"\\Log\\SSISLog\\SSIS"+ RIGHT((DT_STR,4,1252)DATEPART( "yyyy" , getdate() ),2) + RIGHT("0" + (DT_STR,4,1252)DATEPART( "mm" , getdate() ), 2) + RIGHT("0" + (DT_STR,4,1252)DATEPART( "dd" , getdate() ), 2) +".csv"</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:FileUsageType="1"
+      DTS:ConnectionString="E:\Project2-Topic4\group_4-fa-project1\Log\SSISLog\SSIS210908.csv" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

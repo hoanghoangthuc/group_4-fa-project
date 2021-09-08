@@ -1,0 +1,11 @@
+Warehouse_ID,Warehouse_Name,Warehouse_cost,Location_ID
+0,Chicago_WH165,2078,165
+1,Detroit_WH608,2850,608
+2,Chicago_WH109,1855,109
+3,New_York_WH1118,2537,1118
+4,Honolulu_WH1167,1808,1167
+5,Los_Angeles_WH765,2591,765
+6,Los_Angeles_WH1048,1221,1048
+7,Chicago_WH184,2868,184
+8,Chicago_WH1026,2121,1026
+9,New_York_WH682,2075,682

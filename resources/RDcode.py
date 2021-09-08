@@ -24,9 +24,9 @@ def CreateDataRaw():#create DataRaw
     print('Create Product ')
     df_P=create_product(ParamObject.product_record,datetime.strptime(ParamObject.start_date, '%d-%m-%Y'),datetime.strptime(ParamObject.end_date, '%d-%m-%Y'),df_w)
     print('Create Storage ')
-    df_sto=create_Storage(ParamObject.location_record,df_P,df_w)
+    df_sto=create_Storage(df_P,df_w)
     print('Create Import ')
-    df_imp=create_Import(df_sto,df_s,datetime.strptime(ParamObject.start_date, '%d-%m-%Y'),datetime.strptime(ParamObject.end_date, '%d-%m-%Y'))
+    df_imp=create_Import(df_sto,df_s,df_w,df_P,datetime.strptime(ParamObject.start_date, '%d-%m-%Y'),datetime.strptime(ParamObject.end_date, '%d-%m-%Y'))
     print('Create Record ')
     df_R=create_record(df_sto,datetime.strptime(ParamObject.start_date, '%d-%m-%Y'),datetime.strptime(ParamObject.end_date, '%d-%m-%Y'),df_P,df_C,df_w)
     col_C=[ 'Customer_ID','job', 'company', 'ssn', 'residence',
@@ -36,7 +36,6 @@ def CreateDataRaw():#create DataRaw
     
     df_W=df_w[col_W]
     df_c=df_C[col_C]
-    #df_R=df_R[columnsrecord]
     
     return df_l,df_s,df_W,df_c,df_P,df_sto,df_imp, df_R
     
@@ -56,7 +55,6 @@ def  Rawurl():
 
 #create warehouse
 def create_Warehouse(RECORD_COUNT,Lc):
-    time_stampe = datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
     Warehouse_ID=[]
     Warehouse_Name =[]
     Warehouse_cost = []
@@ -112,7 +110,7 @@ def create_record(Sto,startdate,enddate,Pr,Cu,Wh):
             Pro_in=i['Product']
             Cus_in=random.randint(0, len(Ra_Cus)-1)
             Wah_in=i['Warehouse']
-            Product_ID=Ra_Pro['Product_ID'][Pro_in]
+            Product_ID=Ra_Pro['NoID'][Pro_in]
             Customer_ID=Ra_Cus['Customer_ID'][Cus_in]
             Quantity=j
             # diền ship vào đay ship là tiền ship (lat,long của cus,,,, lat long của warehosue)
@@ -185,9 +183,6 @@ def create_location(Index_count):
         df = df.append(a_series, ignore_index=True)
     return df
 
-
-
-
 #create Customer
 def create_Customer(RECORD_COUNT,Lc):
     time_stampe = datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%p")
@@ -240,13 +235,12 @@ def create_Suppiler(RECORD_COUNT,Lc):
         df = df.append(a_series, ignore_index=True) 
     return(df)
 
-
-def create_Storage(RECORD_COUNT,Pr,Wa):
+def create_Storage(Pr,Wa):
     fake = Faker()
     df=pd.DataFrame(columns=['Storage_ID','Product','Warehouse','Capability','Quantity'])
-    for i in range(RECORD_COUNT):
+    for i in range(len(Pr)):
         Storage_ID=i
-        Product=random.randint(0, len(Pr)-1)
+        Product=i
         Warehouse=random.randint(0, len(Wa)-1)
         Capability=fake.random_int(1000,10000)
         Quantity=fake.random_int(0,Capability)
@@ -255,20 +249,22 @@ def create_Storage(RECORD_COUNT,Pr,Wa):
         df = df.append(a_series, ignore_index=True) 
     return(df)    
 
-def create_Import(Sto,Sp,startdate,enddate):
+def create_Import(Sto,Sp,Wh,Pr,startdate,enddate):
     fake = Faker()
-    df=pd.DataFrame(columns=['Import_ID','Product','Warehouse','Suppiler','Quantity','ImportDate','ModifiedDate'])
+    df=pd.DataFrame(columns=['Import_ID','Product','Warehouse','Suppiler','Quantity','Ship_Distance','Ship_Cost','ImportDate','ModifiedDate'])
     ImportID=0
     for ind,i in Sto.iterrows():
         importNum=sumSequence(i['Quantity'])
         for j in importNum:
             Product=i['Product']
             Warehouse=i['Warehouse']
-            Suppiler=random.randint(1, len(Sp)-1)
+            Suppiler=random.randint(0, len(Sp)-1)
             Quantity=j
+            Ship_Distance = distance(Sp['Lat'][Suppiler],Sp['Long'][Suppiler],Wh['Lat'][Warehouse],Wh['Long'][Warehouse])
+            Ship_Cost = shipping_cost(Ship_Distance,Pr['Weight'][Product]*j)/2
             ImportDate=fake.date_between(start_date = startdate, end_date = enddate)
             ModifiedDate=ImportDate
-            to_append=[ImportID, Product, Warehouse, Suppiler,Quantity,ImportDate,ModifiedDate]
+            to_append=[ImportID, Product, Warehouse, Suppiler,Quantity,Ship_Distance,Ship_Cost,ImportDate,ModifiedDate]
             a_series = pd.Series(to_append, index = df.columns)
             df = df.append(a_series, ignore_index=True) 
             ImportID+=1
@@ -289,10 +285,7 @@ def generatePassword(i,k) :
 
 #create count ship code
 def shipping_cost(distance,weigth):
-    if float(distance) < 300:
-        cost = 0
-    elif float(distance) >= 300:
-        cost = (distance - 300)*0.00002*weigth
+    cost = distance*0.00002*weigth + 0.001*weigth
     return round(cost,3)
 
 #create distance

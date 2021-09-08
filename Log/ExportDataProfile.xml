@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<DataProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/sqlserver/2008/DataDebugger/">
+  <ProfileVersion>1.0</ProfileVersion>
+  <DataSources>
+    <DtsDataSource ID="{334F3DCF-12B2-4FC4-B7E8-132D55950198}" Name="ErrorCustomerData">
+      <DtsConnectionManagerID>ErrorCustomerData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{22F91828-9196-4A0B-A5C6-AE8BEFC67FB2}" Name="ErrorExportData">
+      <DtsConnectionManagerID>ErrorExportData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{FC2B7294-8941-4D20-B04A-AA0494638D07}" Name="ErrorImportData">
+      <DtsConnectionManagerID>ErrorImportData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{0F113D92-7DEA-4918-9234-85445EE4551F}" Name="ErrorLocationData">
+      <DtsConnectionManagerID>ErrorLocationData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{907EDEDE-FE65-4505-8330-8DAB5EC1C1D2}" Name="ErrorProductData">
+      <DtsConnectionManagerID>ErrorProductData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{0EF70554-7FF6-415E-8559-7D8D21229D86}" Name="ErrorStorageData">
+      <DtsConnectionManagerID>ErrorStorageData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{2F5D1D53-4B28-453D-BF3F-E5AE35E3A119}" Name="ErrorSupplierData">
+      <DtsConnectionManagerID>ErrorSupplierData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{F9788ABF-817B-4875-879D-A6EF9CBD0906}" Name="ErrorWarehouseData">
+      <DtsConnectionManagerID>ErrorWarehouseData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{1E45C4D4-380D-45D5-9306-B5ED56CD4F57}" Name="ExportDataProfile">
+      <DtsConnectionManagerID>ExportDataProfile</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{8F30BC68-0F9F-4E6E-A9E4-60D6F901B612}" Name="ImportDataProfile">
+      <DtsConnectionManagerID>ImportDataProfile</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{CCBB82FE-85B2-4EB0-B164-2A6D72AF5D55}" Name="RawCustomerData">
+      <DtsConnectionManagerID>RawCustomerData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{B165727D-656F-4A7C-85D2-430462ABC2E4}" Name="RawExportData">
+      <DtsConnectionManagerID>RawExportData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{649C8BB3-AE2A-4131-9C27-4E0DBF637896}" Name="RawImportData">
+      <DtsConnectionManagerID>RawImportData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{23DFE6FB-3AB8-4F8D-A3D1-5728D16A4435}" Name="RawLocationData">
+      <DtsConnectionManagerID>RawLocationData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{53F5D5C4-9F0B-4F01-8CEF-B8A8B623891B}" Name="RawProductData">
+      <DtsConnectionManagerID>RawProductData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{2CAE1BF4-269A-4C5E-ADEA-C48D08C5D18C}" Name="RawStorageData">
+      <DtsConnectionManagerID>RawStorageData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{2A932BAA-C27F-41EC-8E2F-0DDCCB2078B3}" Name="RawSupplierData">
+      <DtsConnectionManagerID>RawSupplierData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{15DCDF9D-956B-45DA-9C70-1CFB69BCE792}" Name="RawWarehouseData">
+      <DtsConnectionManagerID>RawWarehouseData</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{6860B508-26D9-4217-A8F6-A4048214A694}" Name="SQL Server">
+      <DtsConnectionManagerID>SQL Server</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}" Name="SQL Server ADO">
+      <DtsConnectionManagerID>SQL Server ADO</DtsConnectionManagerID>
+    </DtsDataSource>
+    <DtsDataSource ID="{528CCF1F-39D2-478C-A00E-52CF83D90429}" Name="LogFile">
+      <DtsConnectionManagerID>LogFile</DtsConnectionManagerID>
+    </DtsDataSource>
+  </DataSources>
+  <DataProfileInput>
+    <ProfileMode>Exact</ProfileMode>
+    <Timeout>0</Timeout>
+    <Requests />
+  </DataProfileInput>
+  <DataProfileOutput>
+    <Profiles />
+  </DataProfileOutput>
+</DataProfile>
