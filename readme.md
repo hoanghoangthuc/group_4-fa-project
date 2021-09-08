@@ -23,15 +23,15 @@ Building the data pipeline
 2. [Download](https://sfc-repo.snowflakecomputing.com/odbc/index.html) and install ODBC driver. You should install and setup both versions for safety reason. After installation, go to ODBC Data Source on your local computer to setup new System DSN: <br>
     i. Click Add, select **SnowflakeDSIIDriver**. <br>
     ii. On **Snowflake Configuration Dialog** enter:<br>
-        Data Source: Your connection name - Remember it for later use.
-        User: Your Snowflake username
-        Password: Your Snowflake password
-        Server: Your Snowflake server(account)
-        Database: Your Snowflake initial database
-        Schema: Your Snowflake initial schema
-        Warehouse: Your Snowflake initial warehouse
-        Role: Your Snowflake initial role
-        Others: Leave it blank
+            - Data Source: Your connection name - Remember it for later use.<br>
+            - User: Your Snowflake username<br>
+            - Password: Your Snowflake password<br>
+            - Server: Your Snowflake server(account)<br>
+            - Database: Your Snowflake initial database<br>
+            - Schema: Your Snowflake initial schema<br>
+            - Warehouse: Your Snowflake initial warehouse<br>
+            - Role: Your Snowflake initial role<br>
+            - Others: Leave it blank<br>
 3. Generate data with: **python RawData.py**.
 4. Deploy **Project2.sln** on SQL Server:<br>
     i. Open **Project2.ispac** under **src\SSIS\bin\Development**.<br>
