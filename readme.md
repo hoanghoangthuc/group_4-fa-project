@@ -9,7 +9,7 @@ This project is using for demo to FA about how to initialize a project and draft
 ## Purpose
 Building the data pipeline
 
-## Detail of Work![plot](./docs/design.png)
+## Detail of Work![plot](./Doc/design.png)
 1. Design data pipeline [here](./docs/design.png "Architecture")
 2. Ingest data from flat file
 3. Extract, captured new and changed data
@@ -49,7 +49,7 @@ Building the data pipeline
 6. Login into [Snowflake]((https://fk36375.ap-southeast-1.snowflakecomputing.com/) with suitable user and role, open and run script [init_snowflake.sql](./src/Snowflake/init_snowflake.sql) to set up Snowflake database, data warehouses, stored procedures, streams and tasks.
 7. Open **PowerBI**, click Get Data, search for Snowflake.
 8. Connect to Snowflake server using your snowflake account.
-9. Create PowerBI dashboard. ![BIplot](./docs/Logistics-Dashboard-QuanPA2.png)
+9. Create PowerBI dashboard. ![BIplot](./Doc/Logistics-Dashboard-QuanPA2.PNG)
 
 ## Snowflake trainer account
 [Snowflake link](https://fk36375.ap-southeast-1.snowflakecomputing.com/)
