@@ -183,6 +183,7 @@ CREATE TABLE [Storing].[Product](
 	[LastEditedBy] [nvarchar](64) NOT NULL,
 	[LastEditedWhen] [datetime] NOT NULL
 );
+CREATE INDEX Product_uuid ON [Storing].[Product]([uuid]);
 
 CREATE TABLE [Storing].[Location](
 	[Location_ID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -198,6 +199,7 @@ CREATE TABLE [Storing].[Location](
 	[LastEditedBy] [nvarchar](64) NOT NULL,
 	[LastEditedWhen] [datetime] NOT NULL
 );
+CREATE INDEX Location_uuid ON [Storing].[Location]([uuid]);
 
 CREATE TABLE [Storing].[Customer](
 	[Customer_ID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -215,6 +217,7 @@ CREATE TABLE [Storing].[Customer](
 	[LastEditedWhen] [datetime] NOT NULL,
     FOREIGN KEY (Location_ID) REFERENCES [Storing].[Location](Location_ID)
 );
+CREATE INDEX Customer_uuid ON [Storing].[Customer]([uuid]);
 
 CREATE TABLE [Storing].[Supplier](
 	[Supplier_ID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -226,6 +229,7 @@ CREATE TABLE [Storing].[Supplier](
 	[LastEditedWhen] [datetime] NOT NULL,
 	FOREIGN KEY (Location_ID) REFERENCES [Storing].[Location](Location_ID)
 );
+CREATE INDEX Supplier_uuid ON [Storing].[Supplier]([uuid]);
 
 CREATE TABLE [Storing].[Warehouse](
 	[Warehouse_ID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -238,6 +242,7 @@ CREATE TABLE [Storing].[Warehouse](
 	[LastEditedWhen] [datetime] NOT NULL,
     FOREIGN KEY (Location_ID) REFERENCES [Storing].[Location](Location_ID)
 );
+CREATE INDEX Warehouse_uuid ON [Storing].[Warehouse]([uuid]);
 
 CREATE TABLE [Storing].[Storage](
 	[StorageID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -252,6 +257,7 @@ CREATE TABLE [Storing].[Storage](
     FOREIGN KEY ([Product_ID]) REFERENCES [Storing].[Product]([Product_ID]),
     FOREIGN KEY ([Warehouse_ID]) REFERENCES [Storing].[Warehouse]([Warehouse_ID])
 );
+CREATE INDEX Storage_uuid ON [Storing].[Storage]([uuid]);
 
 CREATE TABLE [Storing].[Export](
 	[Order_ID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -270,6 +276,7 @@ CREATE TABLE [Storing].[Export](
     FOREIGN KEY ([Product_ID]) REFERENCES [Storing].[Product]([Product_ID]),
     FOREIGN KEY ([Customer_ID]) REFERENCES [Storing].[Customer]([Customer_ID]),
 );
+CREATE INDEX Export_uuid ON [Storing].[Export]([uuid]);
 
 CREATE TABLE [Storing].[Import](
 	[ImportID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -288,6 +295,7 @@ CREATE TABLE [Storing].[Import](
     FOREIGN KEY ([Supplier_ID]) REFERENCES [Storing].[Supplier]([Supplier_ID]),
     FOREIGN KEY ([Warehouse_ID]) REFERENCES [Storing].[Warehouse]([Warehouse_ID])
 );
+CREATE INDEX Import_uuid ON [Storing].[Import]([uuid]);
 
 GO
 sp_configure 'show advanced options', 1;
@@ -358,13 +366,13 @@ GO
 Declare @reference_id nvarchar(max) = (SELECT reference_id
   FROM [SSISDB].[internal].[environment_references]
   WHERE environment_name = 'Project2');
-Declare @command nvarchar(max) = '/ISSERVER "\"\SSISDB\Project2\Project2\Upload.dtsx\"" /SERVER "\".\"" /ENVREFERENCE ' + @reference_id +' /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E'
+Declare @command nvarchar(max) = '/ISSERVER "\"\SSISDB\Project2\Project2\Upload.dtsx\"" /SERVER "\"'+@@servername+'\"" /ENVREFERENCE ' + @reference_id +' /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E'
 EXEC msdb.dbo.sp_add_jobstep @job_name=N'Upload', @step_name=N'Upload', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
 		@on_success_action=1, 
 		@on_fail_action=2, 
-		@retry_attempts=0, 
+		@retry_attempts=2, 
 		@retry_interval=0, 
 		@os_run_priority=0, @subsystem=N'SSIS', 
 		@command=@command, 
@@ -416,13 +424,13 @@ GO
 Declare @reference_id nvarchar(max) = (SELECT reference_id
   FROM [SSISDB].[internal].[environment_references]
   WHERE environment_name = 'Project2');
-Declare @command nvarchar(max) = '/ISSERVER "\"\SSISDB\Project2\Project2\Unload.dtsx\"" /SERVER "\".\"" /ENVREFERENCE ' + @reference_id +' /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E'
+Declare @command nvarchar(max) = '/ISSERVER "\"\SSISDB\Project2\Project2\Unload.dtsx\"" /SERVER "\"'+@@servername+'\"" /ENVREFERENCE ' + @reference_id +' /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E'
 EXEC msdb.dbo.sp_add_jobstep @job_name=N'Unload', @step_name=N'Unload', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
 		@on_success_action=1, 
 		@on_fail_action=2, 
-		@retry_attempts=0, 
+		@retry_attempts=2, 
 		@retry_interval=0, 
 		@os_run_priority=0, @subsystem=N'SSIS', 
 		@command=@command,
