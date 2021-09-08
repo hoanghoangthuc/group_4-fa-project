@@ -358,7 +358,7 @@ GO
 Declare @reference_id nvarchar(max) = (SELECT reference_id
   FROM [SSISDB].[internal].[environment_references]
   WHERE environment_name = 'Project2');
-Declare @command nvarchar(max) = '/ISSERVER "\"\SSISDB\Project2\Project2\Upload.dtsx\"" /SERVER "\".\"" /ENVREFERENCE ' + @reference_id +' /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E'
+Declare @command nvarchar(max) = '/ISSERVER "\"\SSISDB\Project2\Project2\Upload.dtsx\"" /SERVER "\"'+@@servername+'\"" /ENVREFERENCE ' + @reference_id +' /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E'
 EXEC msdb.dbo.sp_add_jobstep @job_name=N'Upload', @step_name=N'Upload', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -416,7 +416,7 @@ GO
 Declare @reference_id nvarchar(max) = (SELECT reference_id
   FROM [SSISDB].[internal].[environment_references]
   WHERE environment_name = 'Project2');
-Declare @command nvarchar(max) = '/ISSERVER "\"\SSISDB\Project2\Project2\Unload.dtsx\"" /SERVER "\".\"" /ENVREFERENCE ' + @reference_id +' /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E'
+Declare @command nvarchar(max) = '/ISSERVER "\"\SSISDB\Project2\Project2\Unload.dtsx\"" /SERVER "\"'+@@servername+'\"" /ENVREFERENCE ' + @reference_id +' /Par "\"$ServerOption::LOGGING_LEVEL(Int16)\"";1 /Par "\"$ServerOption::SYNCHRONIZED(Boolean)\"";True /CALLERINFO SQLAGENT /REPORTING E'
 EXEC msdb.dbo.sp_add_jobstep @job_name=N'Unload', @step_name=N'Unload', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
