@@ -1,92 +1,57 @@
-# PROJECT FA 01
-## Please read this to understand what we do!
-## I. DECSRIPTION OF THIS PROJECT
-- *Business Question*: Minimizing transportation costs and warehouse allocation
+# FA_project2
+## Project Topic
+### Logistics
+Minimizing transportation costs and warehouse allocation.
 
-- *Business Scenario*: E-commerce Service Company A is one of the large e-commerce companies capable of providing international products to customers. Items shipped domestically need at least 14 days of inspection before shipping to customers. Some products are stocked before and can be delivered to customers in a short time. To be able to supply products on company A well, it needs to have good supply warehouses for customers. Including warehouses in many provinces before shipping to customer addresses (districts, districts, wards). However, there are many costs that need to be optimized, such as the cost of storage and the cost of products supplied to the market, which is also an issue that needs to be calculated.
+## Description of this project
+This project is using for demo to FA about how to initialize a project and draft data pipeline.
 
-This project is for initializing and creating data pipeline to solve the aboved Business Question and Business Scenario
-## ROOT Folder
-![Root ffle](https://user-images.githubusercontent.com/62283838/129613523-993dae1c-1817-4082-b5f4-55c7e4f2e95f.PNG)
-there is project's root folder. That shows what we work here
-- *Folder Data include data train, data use, data Error, data raw and data working
-    - Raw folder includes data after we generate data from python code.
-    - Working folder includes the data after we generate the data from the python code, which we use all the '.csv' data in a way that is set to ssis and data errors (insufficient quality) into the files. '.txt'.
-    - Directory errors include data audit and logging after running ssis and in SQL server.
-    - Work folder includes data after ETL ssis and fetched from SQL server, we use this directory put in snowflake.
-    - Export_snowflake includes the data that we download the data model from snowflake.
-- *Folder Src include process with SQL, SSIS, Snowflake project and code.
-    - MSSQL includes an init file to declare the schema before we run ssis and put the project related data into SQL server.
-    - Snowflake includes an init file to declare the schema before we run ssis and inject data related to the Snowflake project, the data modeling process, and the task.
-        -  connect_snowsql.bat is file run upload data from data/work to snowflake
-        -  export_snowsql.bat is file down load data to folder data/export_snowflake
-        -  put_snow.sql is code sql support upload data for connect_snowsql.bat 
-        -  export_snowsql.sql is code sql support download data for export_snowsql.bat
-        -  export_log.txt is record process with download data from snowflake
-        -  snowsql_log.txt is record processs with upload data from snowflake
-    - SnowSQL includes code and logs to automate loading and unloading data from snowflake and local.
-        - init_snowflake.sql file set up table, schema, stage, database in snowflake
-        - procedure_snowflake.sql file set producre in snowflake and call producre
-        - task_snowflake.sql file set task and schedule to run procedure.
-    - SSIS includes project and file to run ssis in visualcode
-- *Folder Resoure include Code generator data by python.
-    - Config.json is file include number row of tables and time start and time end of record.
-    - configparam.py is file have declare values from config to RD.py
-    - Rawdata.py is file run code generate data from RD.py
-    - RD.py is file have def create table, caculation,... to make data.
-- *Doc is folder inclule flow, detail data, chema when begin(and end),...
-## detail of work
-### 1. Design data pipeline [here](https://github.com/thuchh/group_4-fa-project/blob/main/Doc/flow.png)
-### 2. Ingest data from flat file
-### 3. Extract, ETL Data
-### 4. Load new and changed data onto Snowflake
-### 5. Build data model [schema](https://github.com/thuchh/group_4-fa-project/blob/main/Doc/Schema.png) with [detail tavle schema](https://github.com/thuchh/group_4-fa-project/blob/main/Doc/detail%20of%20columns.xlsx)
-### 6. Visualize data
-## Generate Data by python (require python 3)
--  We work all in resouces folder, that have file name RawData.py to generator data. output is files CSV in folder Data/Raw, Data/Working. We use fake module to make fake data. 
- 1. We should have a path to the folder in local in Command Prompt to install module that required to run python.
---PATH (is where we have the folder contain all folder of project)
+## Purpose
+Building the data pipeline
 
-```bash
-pip install -r resources/requirements.txt
-```
- 2. Change rows of tables. In file Config.json: customer_record(customer line number), product_record(product line number), location_record(location line number), warehouse_record(warehouse line number), order_record(order line number), start_date(date start of record),end_date(date end of record).
- 3. Installation RawData (folder Data/Raw, Data/Working)
-```bash
-python resources/RawData.py
-```
-###Install snowSQL:[Download](https://sfc-repo.snowflakecomputing.com/snowsql/index.html) 
-###SSIS (require: visual studio has integration service, SQL server,SnowSQL)
-1. go to src/MSSQL click init_SQL_install.SQL to init tables and trigger in to SQLserver. Name database is Project1.
-2. go to src/Snowflake link:https://yr27995.southeast-asia.azure.snowflakecomputing.com/ and:
--  Take init_snowflake.sql, procedure_snowflake.sql task_snowflake.sql into 3 script query int snowflake.
--  Run init_snowflake in query first to declare model of data.
--  in file procedure, I have comment all call, If use, you shold open new querry in Snowflake.
--  You should run file procedure and task after you run init_snowflake
-3. In visual code, go to file select open, click on project/solution. select file .sln in folder SSIS of the project.
-4. Set folder of path:
-- Click right in background of control flow, select variables. 
-- In values of 'ProjectPath' in values box, change source to the folder contain the project.
-- Click in all of other boxs '...' in expresssion. click evaluate expression and save. 
- ![image](https://user-images.githubusercontent.com/62283838/129654666-c335f3ab-3b7f-428c-9826-e9d312cecb91.png)
-5. change connect manager to Project1 database in your SQL server. And make connection managerment in Solution Explorer board in to your Database.
-6. Set up again SCD in stagging_location data flow task by click in that, set table view is Stagging.Location, set input columns is coppy of...(...same Dimension Columns), set type Key of Location is Bussiness key and click next. Next, in Dimension Columns add Address(1 house may has 2 address when they in update), in change type choice historical atrribute click next. Set 'columns to indicate current record' is post code,'Values when current' is current, 'expỉation value' is expired. And click finish.
-7. Click F5 to run SSIS
-8. When we see that finished load data to csv. It'll show Program, waiting and type passwork is"Nhat123456" You can change your account snowflake in both files .bat in /src/snowSQL/ by -a (account) -u (user) -d (Database) -w (warehouse) -s (stage) -r (role). 
-9. Wait to finish SSIS. Data will go into SQLserver and snowflake cloud.
-Set task schedule and process by run script of procedure_snowflake.sql task_snowflake.sql in snowflake 'snowflakecomputing.com/' 
-###Deploy
-![image](https://github.com/thuchh/group_4-fa-project/blob/main/Doc/deploy_SQL.PNG)
+## Detail of Work![plot](./docs/design.png)
+1. Design data pipeline [here](./docs/design.png "Architecture")
+2. Ingest data from flat file
+3. Extract, captured new and changed data
+4. Load new and changed data onto Snowflake
+5. Normalize and Denormalize data
+6. Build data model
+7. Visualize data
 
-### Download data by click file \src\Snowsql\export_snowflake.bat, You can see a status of put and download data by snowsql_log.txt(put), export_log(download)
-You can take database from snowflake to build PowerBI
+## How to setup
+1. [Download](https://sfc-repo.snowflakecomputing.com/snowsql/index.html) and install snowsql CLI.
+2. [Download](https://sfc-repo.snowflakecomputing.com/odbc/index.html) and install ODBC driver. You should install and setup both versions for safety reason. After installation, go to ODBC Data Source on your local computer to setup new System DSN: <br>
+    i. Click Add, select **SnowflakeDSIIDriver**. <br>
+    ii. On **Snowflake Configuration Dialog** enter:<br>
+        Data Source: Your connection name - Remember it for later use.
+        User: Your Snowflake username
+        Password: Your Snowflake password
+        Server: Your Snowflake server(account)
+        Database: Your Snowflake initial database
+        Schema: Your Snowflake initial schema
+        Warehouse: Your Snowflake initial warehouse
+        Role: Your Snowflake initial role
+        Others: Leave it blank
+3. Generate data with: **python RawData.py**.
+4. Deploy **Project2.sln** on SQL Server:<br>
+    i. Open **Project2.ispac** under **src\SSIS\bin\Development**.<br>
+    ii. Under **"Select Source"** follow the default Project Deployment, with the path pointing to the **"Project2.ispac"** package.<br>
+    iii. Under **"Select Destination"** enter the name of the server that hosts the SSIS catalog.<br>
+    iv. Select a path under the SSIS catalog, create or use folder **"Project2"**.<br>
+    v. Finalize the wizard by clicking Deploy.<br>
+5. Login into MSSQL, open script [init_mssql.sql](./src/MSSQL/init_mssql.sql), change some variables and run it set up local database, environments, jobs and schedules, you can also change schedule time and frequency as needed. Variables to change: <br>
+    i. var_email: Email for receive Error Alert <br>
+    ii. var_path: Your project path <br>
+    iii. var_snowflake_dsn_name: Your snowflake DSN connection name <br>
+    iv. var_snowflake_account: Your snowflake account <br>
+    v. var_snowflake_password: Your snowflake password <br>
+    vi. var_snowflake_user: Your snowflake username <br>
+6. Login into [Snowflake]((https://fk36375.ap-southeast-1.snowflakecomputing.com/) with suitable user and role, open and run script [init_snowflake.sql](./src/Snowflake/init_snowflake.sql) to set up Snowflake database, data warehouses, stored procedures, streams and tasks.
+7. Open **PowerBI**, click Get Data, search for Snowflake.
+8. Connect to Snowflake server using your snowflake account.
+9. Create PowerBI dashboard. ![BIplot](./docs/Dashboard-ecommerce.png)
 
-## link snowflake: https://yr27995.southeast-asia.azure.snowflakecomputing.com/
-##account for trainer:
-    - Miss Mai: Acc:'msmai' / pass:'12345678wa'
-    = Mr Long: Acc:'Mrlong' / pass: '12345678wa'
-## link powerBI https://app.powerbi.com/groups/me/reports/b6b77461-33f2-40c1-9aac-57b0612737fc/ReportSection
-![image](https://github.com/thuchh/group_4-fa-project/blob/main/Doc/Dashboard.PNG)
-## Thank You!
-Nhat,Le Quang
-Thuc, Hoang Hoang
+## Snowflake trainer account
+[Snowflake link](https://fk36375.ap-southeast-1.snowflakecomputing.com/)
+1. User: `longbv1`               Password: `abc123`
+2. User: `mainq2`                Password: `abc123`

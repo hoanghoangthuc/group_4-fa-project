@@ -3,40 +3,40 @@ USE master;
 GO
 EXEC [SSISDB].[catalog].[create_environment] @environment_name=N'Project2', @environment_description=N'Set up variables for Project2 jobs.', @folder_name=N'Project2';
 GO
--- Change sql_variant to your email
-DECLARE @var sql_variant = N'paq9695@gmail.com'
+-- Change var_email to your email
+DECLARE @var_email sql_variant = N'paq9695@gmail.com'
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'ErrorEmail', @sensitive=False,
-@description=N'Email address for receiving error alert', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String';
+@description=N'Email address for receiving error alert', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var_email, @data_type=N'String';
 GO
--- Change sql_variant to your project path
-DECLARE @var sql_variant = N'E:\Project2-Topic4\group_4-fa-project1'
+-- Change var_path to your project path
+DECLARE @var_path sql_variant = N'E:\Project2-Topic4\group_4-fa-project1'
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'ProjectPath', @sensitive=False,
-@description=N'Path to Project folder', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String';
+@description=N'Path to Project folder', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var_path, @data_type=N'String';
 GO
--- Change sql_variant to your Snowflake DSN Name
-DECLARE @var sql_variant = N'Snowflake'
+-- Change var_snowflake_dsn_name to your Snowflake DSN Name
+DECLARE @var_snowflake_dsn_name sql_variant = N'Snowflake'
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'SnowflakeDSNName', @sensitive=False,
-@description=N'Snowflake DSN Name', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
+@description=N'Snowflake DSN Name', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var_snowflake_dsn_name, @data_type=N'String'
 GO
--- Change sql_variant to your Snowflake account
-DECLARE @var sql_variant = N'fk36375.ap-southeast-1.snowflakecomputing.com'
+-- Change var_snowflake_account to your Snowflake account
+DECLARE @var_snowflake_account sql_variant = N'fk36375.ap-southeast-1'
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'SnowflakeAccount', @sensitive=False,
-@description=N'Snowflake Account', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
+@description=N'Snowflake Account', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var_snowflake_account, @data_type=N'String'
 GO
--- Change sql_variant to your Snowflake password
-DECLARE @var sql_variant = N'Ab@019283'
+-- Change var_snowflake_password to your Snowflake password
+DECLARE @var_snowflake_password sql_variant = N'Ab@019283'
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'SnowflakePassword', @sensitive=False,
-@description=N'Snowflake Password', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
+@description=N'Snowflake Password', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var_snowflake_password, @data_type=N'String'
 GO
--- Change sql_variant to your Snowflake user
-DECLARE @var sql_variant = N'quanpa'
+-- Change var_snowflake_user to your Snowflake user
+DECLARE @var_snowflake_user sql_variant = N'quanpa'
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'SnowflakeUser', @sensitive=False,
-@description=N'Snowflake User', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
+@description=N'Snowflake User', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var_snowflake_user, @data_type=N'String'
 GO
--- Change sql_variant to your SQL Server Name
-DECLARE @var sql_variant = @@servername
+-- Change var_servername to your SQL Server Name
+DECLARE @var_servername sql_variant = @@servername
 EXEC [SSISDB].[catalog].[create_environment_variable] @variable_name=N'Servername', @sensitive=False,
-@description=N'SQL Servername', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var, @data_type=N'String'
+@description=N'SQL Servername', @environment_name=N'Project2', @folder_name=N'Project2', @value=@var_servername, @data_type=N'String'
 GO
 
 Declare @reference_id bigint
@@ -338,33 +338,6 @@ EXECUTE msdb.dbo.sysmail_add_profileaccount_sp
     @account_name = 'Gmail',  
     @sequence_number = 1;  
 GO
-
--- Create Proxy
-USE [msdb]
-IF 'runcmd' IN (SELECT [name] FROM [msdb].[dbo].[sysproxies])
-	EXEC msdb.dbo.sp_delete_proxy @proxy_name=N'runcmd';
-GO
-EXEC msdb.dbo.sp_add_proxy @proxy_name=N'runcmd', @credential_name=N'runcmd', 
-		@enabled=1;
-
-USE msdb
-EXEC msdb.dbo.sp_grant_proxy_to_subsystem
-@proxy_name=N'runcmd',
-@subsystem_name='CmdExec' 
-GO
-EXEC msdb.dbo.sp_grant_proxy_to_subsystem
-@proxy_name=N'runcmd',
-@subsystem_name='ANALYSISQUERY'
-GO
-EXEC msdb.dbo.sp_grant_proxy_to_subsystem
-@proxy_name=N'runcmd',
-@subsystem_name='ANALYSISCOMMAND'
-GO
-EXEC msdb.dbo.sp_grant_proxy_to_subsystem
-@proxy_name=N'runcmd',
-@subsystem_name='Dts'
-GO
-USE [msdb]
 
 -- Create Job Upload
 USE [msdb]

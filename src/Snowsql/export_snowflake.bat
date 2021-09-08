@@ -12,9 +12,9 @@ SET logdate=%date:~-4%%date:~3,2%%date:~0,2%
 @echo off
 cls
 
-SET SNOWSQL_ACCOUNT=fk36375.ap-southeast-1
-SET SNOWSQL_USER=quanpa
-SET SNOWSQL_PWD=Ab@019283
+SET SNOWSQL_ACCOUNT=%1
+SET SNOWSQL_USER=%2
+SET SNOWSQL_PWD=%3
 
 echo Unload Start>> "%logpath%"/snowsql"%logdate%".txt
 

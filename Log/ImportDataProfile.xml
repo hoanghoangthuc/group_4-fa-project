@@ -152,8 +152,8 @@
         <DataSourceID>{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}</DataSourceID>
         <Table DataSource="DESKTOP-MUE9P6C" Database="Project2" Schema="Staging" Table="Storage" RowCount="1000" />
         <Column Name="LastEditedWhen" SqlDbType="DateTime" MaxLength="0" Precision="255" Scale="255" LCID="-1" CodePage="0" IsNullable="false" StringCompareOptions="0" />
-        <MinValue>2021-09-07T16:40:26.0000000</MinValue>
-        <MaxValue>2021-09-07T16:40:26.0000000</MaxValue>
+        <MinValue>2021-09-08T08:17:04.0000000</MinValue>
+        <MaxValue>2021-09-08T08:17:04.0000000</MaxValue>
       </ColumnStatisticsProfile>
       <ColumnValueDistributionProfile IsExact="true" ProfileRequestID="ValueDistReq">
         <DataSourceID>{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}</DataSourceID>
@@ -770,7 +770,7 @@
         <NumberOfDistinctValues>1</NumberOfDistinctValues>
         <ValueDistribution>
           <ValueDistributionItem>
-            <Value>2021-09-07T16:40:26.0000000</Value>
+            <Value>2021-09-08T08:17:04.0000000</Value>
             <Count>1000</Count>
           </ValueDistributionItem>
         </ValueDistribution>
@@ -915,8 +915,8 @@
         <DataSourceID>{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}</DataSourceID>
         <Table DataSource="DESKTOP-MUE9P6C" Database="Project2" Schema="Staging" Table="Import" RowCount="8146" />
         <Column Name="LastEditedWhen" SqlDbType="DateTime" MaxLength="0" Precision="255" Scale="255" LCID="-1" CodePage="0" IsNullable="false" StringCompareOptions="0" />
-        <MinValue>2021-09-07T16:40:26.0000000</MinValue>
-        <MaxValue>2021-09-07T16:40:26.0000000</MaxValue>
+        <MinValue>2021-09-08T08:17:04.0000000</MinValue>
+        <MaxValue>2021-09-08T08:17:04.0000000</MaxValue>
       </ColumnStatisticsProfile>
       <ColumnValueDistributionProfile IsExact="true" ProfileRequestID="ValueDistReq1">
         <DataSourceID>{88007AE1-74B6-4469-BA41-DFCA9F97CAAE}</DataSourceID>
@@ -5615,7 +5615,7 @@
         <NumberOfDistinctValues>1</NumberOfDistinctValues>
         <ValueDistribution>
           <ValueDistributionItem>
-            <Value>2021-09-07T16:40:26.0000000</Value>
+            <Value>2021-09-08T08:17:04.0000000</Value>
             <Count>8146</Count>
           </ValueDistributionItem>
         </ValueDistribution>

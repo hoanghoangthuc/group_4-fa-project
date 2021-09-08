@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="3"
-  DTS:VersionGUID="{15CF2184-A25A-4EE2-BF12-12BE43E815A6}">
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{DD04E6AF-ACB7-4A11-9564-7AC53F2A9827}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:LogProviders>
@@ -120,13 +120,16 @@
       <DTS:LoggingOptions
         DTS:FilterKind="0" />
       <DTS:PropertyExpression
+        DTS:Name="Arguments">@[$Project::SnowflakeAccount] +" "+@[$Project::SnowflakeUser]+" "+ @[$Project::SnowflakePassword]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
         DTS:Name="Executable">@[$Project::ProjectPath]+"\\src\\Snowsql\\export_snowflake.bat"</DTS:PropertyExpression>
       <DTS:PropertyExpression
         DTS:Name="WorkingDirectory">@[$Project::ProjectPath]+"\\src\\Snowsql"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <ExecuteProcessData
-          Executable="E:\Project 2 - Topic 4\group_4-fa-project1\src\Snowsql\export_snowflake.bat"
-          WorkingDirectory="E:\Project 2 - Topic 4\group_4-fa-project1\src\Snowsql" />
+          Executable="E:\Project2-Topic4\group_4-fa-project1\src\Snowsql\export_snowflake.bat"
+          Arguments="fk36375.ap-southeast-1 quanpa Ab@019283"
+          WorkingDirectory="E:\Project2-Topic4\group_4-fa-project1\src\Snowsql" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
