@@ -815,7 +815,8 @@ CREATE OR REPLACE PROCEDURE procFactImport()
     JOIN NDS.Warehouse nw
     ON i.Warehouse_ID = nw.Warehouse_ID
     JOIN Model.DimLocation lw
-    ON nw.Location_ID = lw.Location_ID);`;
+    ON nw.Location_ID = lw.Location_ID
+    WHERE p.Currently = 1);`;
   try {
         snowflake.execute ({sqlText: sql_command_insert_fact_import});     
         result = "Succeeded";
@@ -855,7 +856,8 @@ CREATE OR REPLACE PROCEDURE procFactExport()
     JOIN NDS.Warehouse nw
     ON st.Warehouse_ID = nw.Warehouse_ID
     JOIN Model.DimLocation lw
-    ON nw.Location_ID = lw.Location_ID);`;
+    ON nw.Location_ID = lw.Location_ID
+    WHERE p.Currently = 1);`;
   try {
         snowflake.execute ({sqlText: sql_command_insert_fact_export});     
         result = "Succeeded";
