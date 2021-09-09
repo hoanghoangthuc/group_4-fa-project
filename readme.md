@@ -46,7 +46,7 @@ Building the data pipeline
     iv. var_snowflake_account: Your snowflake account <br>
     v. var_snowflake_password: Your snowflake password <br>
     vi. var_snowflake_user: Your snowflake username <br>
-6. Login into [Snowflake]((https://fk36375.ap-southeast-1.snowflakecomputing.com/) with suitable user and role, open and run script [init_snowflake.sql](./src/Snowflake/init_snowflake.sql) to set up Snowflake database, data warehouses, stored procedures, streams and tasks.
+6. Login into [Snowflake](https://fk36375.ap-southeast-1.snowflakecomputing.com/) with suitable user and role, open and run script [init_snowflake.sql](./src/Snowflake/init_snowflake.sql) to set up Snowflake database, data warehouses, stored procedures, streams and tasks.
 7. Open **PowerBI**, click Get Data, search for Snowflake.
 8. Connect to Snowflake server using your snowflake account.
 9. Create PowerBI dashboard. ![BIplot](./Doc/Logistics-Dashboard-QuanPA2.PNG)
