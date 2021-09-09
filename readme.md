@@ -32,7 +32,7 @@ Building the data pipeline
             - Warehouse: Your Snowflake initial warehouse<br>
             - Role: Your Snowflake initial role<br>
             - Others: Leave it blank<br>
-3. Generate data with: **python RawData.py**.
+3. Generate data with: **python RawData.py**. (Data downloaded from Git may not work because change in row delimiter - from CR/LF to LF)
 4. Deploy **Project2.sln** on SQL Server:<br>
     i. Open **Project2.ispac** under **src\SSIS\bin\Development**.<br>
     ii. Under **"Select Source"** follow the default Project Deployment, with the path pointing to the **"Project2.ispac"** package.<br>
